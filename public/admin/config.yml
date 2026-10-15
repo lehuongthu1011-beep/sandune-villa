@@ -1,11 +1,11 @@
 # Cấu hình trang quản trị /admin (Sveltia CMS).
-# Sau khi tạo repo GitHub thật, đổi "repo" bên dưới thành "ten-tai-khoan/ten-repo".
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/sandune-villa
+  repo: lehuongthu1011-beep/sandune-villa
   branch: main
   # Cổng đăng nhập trung gian (Cloudflare Worker) — xem apps-script/ và
-  # references/04-cms-admin.md trong skill xây-website-ban-hang để dựng.
+  # references/04-cms-admin.md trong skill xây-website-ban-hang để dựng khi
+  # cần nhân sự đăng nhập bằng email thay vì tài khoản GitHub trực tiếp.
   # base_url: https://sandune-auth.<ten-tai-khoan>.workers.dev
 
 media_folder: "public/assets"
