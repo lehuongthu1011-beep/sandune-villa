@@ -1,0 +1,66 @@
+{
+  "scores": {
+    "airbnb": { "rating": 5.0, "count": 52 },
+    "agoda": {
+      "rating": 10,
+      "labelVi": "Trên cả tuyệt vời",
+      "labelEn": "Exceptional",
+      "count": 2,
+      "categories": [
+        ["Độ sạch sẽ", "Cleanliness", 10],
+        ["Đáng tiền", "Value", 10],
+        ["Vị trí", "Location", 10],
+        ["Dịch vụ", "Service", 10],
+        ["Cơ sở vật chất", "Facilities", 10]
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "rating": 5,
+      "source": "Airbnb",
+      "name": "Tu",
+      "fromVi": "London, Vương quốc Anh",
+      "fromEn": "London, United Kingdom",
+      "whenVi": "2 tuần trước",
+      "whenEn": "2 weeks ago",
+      "en": "The host was very responsive and helpful from the beginning to the end of our stay. The villa was beautiful, exceptionally well maintained, and exactly as shown in the photos. We especially loved the beautiful pool and stylish decoration—the villa felt like a relaxing resort while still having all the comforts of home. The spacious living area and well-equipped kitchen were great for family time.",
+      "vi": "The host was very responsive and helpful from the beginning to the end of our stay. The villa was beautiful, exceptionally well maintained, and exactly as shown in the photos. We especially loved the beautiful pool and stylish decoration—the villa felt like a relaxing resort while still having all the comforts of home. The spacious living area and well-equipped kitchen were great for family time."
+    },
+    {
+      "rating": 5,
+      "source": "Airbnb",
+      "name": "Eric",
+      "fromVi": "Dieppe, Pháp",
+      "fromEn": "Dieppe, France",
+      "whenVi": "3 tuần trước",
+      "whenEn": "3 weeks ago",
+      "en": "Everything was perfect. This villa is certainly recommended for a pleasant stay in DaNang and its surroundings.",
+      "vi": "Everything was perfect. This villa is certainly recommended for a pleasant stay in DaNang and its surroundings.",
+      "replyVi": "Cảm ơn bạn đã chọn villa. Tôi rất vui vì bạn và gia đình đã có một kỳ nghỉ thư giãn.",
+      "replyEn": "Thank you for choosing this villa. I'm so glad you and your family had a relaxing stay."
+    },
+    {
+      "rating": 5,
+      "source": "Airbnb",
+      "name": "Michelle Wu",
+      "fromVi": "Hangzhou, Trung Quốc",
+      "fromEn": "Hangzhou, China",
+      "whenVi": "5 ngày trước",
+      "whenEn": "5 days ago",
+      "en": "房源位置到各处皆方便，房子很漂亮，泳池尤其出片。床品比较舒服。",
+      "vi": "房源位置到各处皆方便，房子很漂亮，泳池尤其出片。床品比较舒服。"
+    },
+    {
+      "rating": 5,
+      "source": "Agoda",
+      "name": "Khách Agoda",
+      "fromVi": "Đánh giá 10 / 10",
+      "fromEn": "Rated 10 / 10",
+      "whenVi": "Great place",
+      "whenEn": "Great place",
+      "en": "The whole family enjoyed the stay.",
+      "vi": "The whole family enjoyed the stay."
+    }
+  ]
+}

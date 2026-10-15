@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "src": "photo-pool-hammocks.png",
+      "vi": "Hồ bơi nước mặn",
+      "en": "The salt-water pool"
+    },
+    {
+      "src": "photo-living.png",
+      "vi": "Phòng khách mở ra hồ bơi",
+      "en": "Living room opening to the pool"
+    },
+    {
+      "src": "photo-dining.png",
+      "vi": "Không gian bàn ăn ấm cúng",
+      "en": "The dining table"
+    },
+    {
+      "src": "photo-bed-loft-tub.png",
+      "vi": "Phòng Duplex",
+      "en": "The Duplex room"
+    },
+    {
+      "src": "photo-sauna.png",
+      "vi": "Phòng xông hơi",
+      "en": "The sauna"
+    },
+    {
+      "src": "photo-bbq-terrace.png",
+      "vi": "Khu vực BBQ ngoài trời",
+      "en": "The outdoor BBQ area"
+    },
+    {
+      "src": "photo-kitchen.png",
+      "vi": "Không gian nấu nướng đầy đủ tiện nghi",
+      "en": "A fully equipped kitchen"
+    },
+    {
+      "src": "photo-pool-waterfall.png",
+      "vi": "Thác nước trong hồ bơi",
+      "en": "The pool waterfall"
+    },
+    {
+      "src": "photo-bathtub.png",
+      "vi": "Bồn tắm đá tự nhiên",
+      "en": "A natural stone soaking tub"
+    },
+    {
+      "src": "photo-exterior-dusk.png",
+      "vi": "Biệt thự lúc hoàng hôn",
+      "en": "The villa at dusk"
+    },
+    {
+      "src": "photo-bed-garden.png",
+      "vi": "Phòng The Garden View",
+      "en": "The Garden View room"
+    },
+    {
+      "src": "photo-balcony.png",
+      "vi": "Ban công riêng",
+      "en": "A private balcony"
+    }
+  ]
+}

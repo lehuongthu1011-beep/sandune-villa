@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "id": "loft",
+      "vi": "Phòng Gác Lửng",
+      "en": "Loft Suite",
+      "blurbVi": "2 giường king, <em>bồn tắm đá đặt ngay cạnh cửa sổ.</em>",
+      "blurbEn": "A king bed under the pitched roof, <em>a stone tub set beside the window.</em>",
+      "images": [
+        "photo-bed-loft-tub.png",
+        "photo-bathtub.png",
+        "photo-vanity.png",
+        "photo-wardrobe.png"
+      ]
+    },
+    {
+      "id": "pool",
+      "vi": "Hồ Bơi Nước Mặn",
+      "en": "The Salt-Water Pool",
+      "blurbVi": "Hồ bơi riêng có thác nước, <em>võng mắc dọc bên bờ.</em>",
+      "blurbEn": "A private pool with its own waterfall, <em>hammocks strung along both banks.</em>",
+      "images": [
+        "photo-pool-hammocks.png",
+        "photo-pool-waterfall.png",
+        "photo-pool-night.png",
+        "photo-pool-aerial.png"
+      ]
+    },
+    {
+      "id": "living",
+      "vi": "Phòng Khách Mở",
+      "en": "The Open Living Room",
+      "blurbVi": "Cửa kính chạy suốt mặt hồ, <em>view trọn vẹn hồ bơi.</em>",
+      "blurbEn": "Glass the full width of the pool, <em>open it and you step straight in.</em>",
+      "images": [
+        "photo-living-pool.png",
+        "photo-living.png",
+        "photo-dining.png",
+        "photo-kitchen.png"
+      ]
+    },
+    {
+      "id": "sauna",
+      "vi": "Phòng Xông Hơi",
+      "en": "The Cedar Sauna",
+      "blurbVi": "Phòng ốp gỗ, <em>trải nghiệm tuyệt vời gói gọn trong villa.</em>",
+      "blurbEn": "A cedar-lined room, <em>the whole experience contained in the villa.</em>",
+      "images": [
+        "photo-sauna.png",
+        "photo-bathroom.png",
+        "photo-bathtub.png"
+      ]
+    },
+    {
+      "id": "terrace",
+      "vi": "Sân BBQ Ngoài Trời",
+      "en": "The BBQ Terrace",
+      "blurbVi": "Không gian hoà mình với thiên nhiên, <em>đem đến trải nghiệm bữa tiệc BBQ trọn vẹn.</em>",
+      "blurbEn": "Open to the garden, <em>for a BBQ evening that runs long.</em>",
+      "images": [
+        "photo-bbq-terrace.png",
+        "photo-bbq-table.png",
+        "photo-balcony.png",
+        "photo-exterior-dusk.png"
+      ]
+    }
+  ]
+}

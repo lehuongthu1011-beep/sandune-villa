@@ -1,0 +1,130 @@
+{
+  "contact": {
+    "phone": "096.315.9933",
+    "email": "trinhgia.jsc.vn@gmail.com",
+    "addressVi": "43 Mỹ Khê 1, Sơn Trà, Đà Nẵng",
+    "addressEn": "My Khe 1, Son Tra, Da Nang",
+    "host": "Kuan"
+  },
+  "rate": {
+    "amount": "15.000.000₫",
+    "unitVi": "/ đêm · nguyên căn",
+    "unitEn": "/ night · whole villa",
+    "noteVi": "Trải nghiệm không gian riêng tư sang trọng tại bãi biển Đà Nẵng",
+    "noteEn": "A private, high-end stay on the Da Nang beachfront"
+  },
+  "copy": {
+    "vi": {
+      "nav": {
+        "villa": "Biệt thự",
+        "rooms": "Phòng",
+        "gallery": "Thư viện",
+        "contact": "Liên hệ"
+      },
+      "cta": "Đặt phòng",
+      "heroOverline": "Mỹ Khê · Đà Nẵng",
+      "heroTitle": "Nguyên căn villa\nbên bãi Mỹ Khê",
+      "heroLede": "Villa riêng 400 m², năm phòng ngủ, hồ bơi nước mặn, phòng xông hơi gỗ và khu BBQ ngoài trời. Thuê nguyên căn, 15.000.000₫ một đêm.",
+      "heroPrimary": "Kiểm tra phòng trống",
+      "heroSecondary": "Xem biệt thự",
+      "searchIn": "Nhận phòng",
+      "searchOut": "Trả phòng",
+      "searchGuests": "Khách",
+      "searchGo": "Tìm",
+      "stats": [
+        {
+          "value": "400",
+          "label": "m² sàn"
+        },
+        {
+          "value": "5",
+          "label": "phòng ngủ"
+        },
+        {
+          "value": "6",
+          "label": "giường king"
+        },
+        {
+          "value": "10",
+          "label": "phút đi bộ ra biển"
+        }
+      ],
+      "introOverline": "Về biệt thự",
+      "introTitle": "Một căn nhà, không phải một khách sạn",
+      "introBody": "SanDune Villa là lựa chọn lý tưởng cho các gia đình, cặp đôi và nhóm nhỏ đang tìm kiếm sự thoải mái, riêng tư cùng một kỳ nghỉ yên bình, sang trọng bên bờ biển, với đầy đủ tiện nghi cần thiết cho một kỳ nghỉ trọn vẹn.",
+      "introBody2": "Xông hơi rồi bơi một vòng, tối ra sân nướng BBQ. Cầu Rồng cách mười lăm phút, sân bay hai mươi phút xe.",
+      "roomsOverline": "Không gian",
+      "roomsTitle": "Năm phòng ngủ,\nsáu giường king",
+      "roomsLede": "Mỗi phòng có điều hoà, phòng tắm riêng ốp gạch terracotta và cửa sổ cao đón nắng sớm. Tất cả các phòng đều có bồn tắm đá đặt ngay trong phòng.",
+      "roomsAll": "Xem tất cả phòng",
+      "amenOverline": "Tiện nghi",
+      "amenTitle": "Mọi thứ đã sẵn ở đây",
+      "galOverline": "Thư viện ảnh",
+      "galTitle": "Không gian tại SanDune Villa",
+      "galMore": "+ 70 ảnh",
+      "quoteOverline": "Khách của chúng tôi",
+      "ctaTitle": "Đặt ngay hôm nay",
+      "ctaLede": "Nhắn cho chúng tôi ngày bạn muốn đến — chủ nhà trả lời trong ngày.",
+      "ctaBtn": "Đặt phòng ngay",
+      "ctaAlt": "Nhắn Zalo",
+      "perNight": "/ đêm",
+      "detail": "Chi tiết"
+    },
+    "en": {
+      "nav": {
+        "villa": "The villa",
+        "rooms": "Rooms",
+        "gallery": "Gallery",
+        "contact": "Contact"
+      },
+      "cta": "Book now",
+      "heroOverline": "My Khe · Da Nang",
+      "heroTitle": "The whole villa,\nsteps from My Khe",
+      "heroLede": "A private 400 m² villa: five bedrooms, a salt-water pool, cedar sauna and BBQ terrace. Let whole, at 15,000,000₫ a night.",
+      "heroPrimary": "Check availability",
+      "heroSecondary": "See the villa",
+      "searchIn": "Check in",
+      "searchOut": "Check out",
+      "searchGuests": "Guests",
+      "searchGo": "Search",
+      "stats": [
+        {
+          "value": "400",
+          "label": "m² of villa"
+        },
+        {
+          "value": "5",
+          "label": "bedrooms"
+        },
+        {
+          "value": "6",
+          "label": "king beds"
+        },
+        {
+          "value": "10",
+          "label": "min walk to beach"
+        }
+      ],
+      "introOverline": "About the villa",
+      "introTitle": "A house, not a hotel",
+      "introBody": "SanDune Villa is the perfect choice for families, couples and small groups seeking comfort, privacy and a peaceful beachfront getaway, with everything you need for a relaxing vacation.",
+      "introBody2": "Sauna, then a swim, then the grill on the terrace after dark. Dragon Bridge is fifteen minutes away, the airport twenty.",
+      "roomsOverline": "The rooms",
+      "roomsTitle": "Five bedrooms,\nsix king beds",
+      "roomsLede": "Every room has air conditioning, a terracotta-tiled en-suite and tall windows that catch the morning. Every one has a stone soaking tub set into the room itself.",
+      "roomsAll": "See all rooms",
+      "amenOverline": "Amenities",
+      "amenTitle": "Everything is already here",
+      "galOverline": "Gallery",
+      "galTitle": "The spaces at SanDune Villa",
+      "galMore": "+ 70 photos",
+      "quoteOverline": "Our guests",
+      "ctaTitle": "Book today",
+      "ctaLede": "Tell us the dates you have in mind — the host replies the same day.",
+      "ctaBtn": "Book your stay",
+      "ctaAlt": "Message on Zalo",
+      "perNight": "/ night",
+      "detail": "Details"
+    }
+  }
+}

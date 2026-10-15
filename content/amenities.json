@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "icon": "waves",
+      "vi": "Hồ bơi nước mặn có thác nước",
+      "en": "Salt-water pool with waterfall",
+      "noteVi": "Riêng biệt, có đèn ban đêm",
+      "noteEn": "Private, lit after dark"
+    },
+    {
+      "icon": "thermometer-sun",
+      "vi": "Phòng xông hơi gỗ",
+      "en": "Cedar sauna",
+      "noteVi": "Ngay cạnh hồ bơi",
+      "noteEn": "Steps from the pool"
+    },
+    {
+      "icon": "flame",
+      "vi": "Khu BBQ ngoài trời",
+      "en": "Outdoor BBQ terrace",
+      "noteVi": "Bàn dài 6 chỗ, có quạt trần",
+      "noteEn": "Six-seat table, ceiling fan"
+    },
+    {
+      "icon": "utensils-crossed",
+      "vi": "Bếp đầy đủ tiện nghi",
+      "en": "Fully equipped kitchen",
+      "noteVi": "Lò nướng, máy rửa bát, đảo bếp",
+      "noteEn": "Oven, dishwasher, island"
+    },
+    {
+      "icon": "wine",
+      "vi": "Bàn ăn gỗ nguyên tấm 12 chỗ",
+      "en": "Twelve-seat live-edge table"
+    },
+    {
+      "icon": "washing-machine",
+      "vi": "Phòng giặt",
+      "en": "Laundry room",
+      "noteVi": "Máy giặt, máy sấy, bàn ủi hơi nước",
+      "noteEn": "Washer, dryer, steam iron"
+    },
+    {
+      "icon": "sofa",
+      "vi": "Phòng khách mở ra hồ bơi",
+      "en": "Living room opening to the pool"
+    },
+    {
+      "icon": "arrow-up-down",
+      "vi": "Thang máy trong nhà",
+      "en": "In-house lift",
+      "noteVi": "Đủ ba tầng",
+      "noteEn": "All three floors"
+    },
+    {
+      "icon": "bath",
+      "vi": "Bồn tắm đá trong phòng ngủ",
+      "en": "Stone soaking tubs in the bedrooms"
+    },
+    {
+      "icon": "car",
+      "vi": "Chỗ đậu xe trong khuôn viên",
+      "en": "On-site parking"
+    },
+    {
+      "icon": "wifi",
+      "vi": "Wi-Fi tốc độ cao",
+      "en": "High-speed Wi-Fi"
+    },
+    {
+      "icon": "footprints",
+      "vi": "Mười phút đi bộ tới biển Mỹ Khê",
+      "en": "Ten-minute walk to My Khe beach"
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+# Cấu hình trang quản trị /admin (Sveltia CMS).
+# Sau khi tạo repo GitHub thật, đổi "repo" bên dưới thành "ten-tai-khoan/ten-repo".
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/sandune-villa
+  branch: main
+  # Cổng đăng nhập trung gian (Cloudflare Worker) — xem apps-script/ và
+  # references/04-cms-admin.md trong skill xây-website-ban-hang để dựng.
+  # base_url: https://sandune-auth.<ten-tai-khoan>.workers.dev
+
+media_folder: "public/assets"
+public_folder: "/assets"
+
+locale: "vi"
+
+collections:
+  - name: "site"
+    label: "Trang chủ & Thông tin chung"
+    files:
+      - name: "site"
+        label: "Nội dung chính"
+        file: "content/site.json"
+        fields:
+          - label: "Liên hệ"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Số điện thoại", name: "phone", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Địa chỉ (Tiếng Việt)", name: "addressVi", widget: "string" }
+              - { label: "Địa chỉ (English)", name: "addressEn", widget: "string" }
+              - { label: "Tên chủ nhà", name: "host", widget: "string" }
+          - label: "Giá đặt phòng"
+            name: "rate"
+            widget: "object"
+            fields:
+              - { label: "Giá hiển thị (vd 15.000.000₫)", name: "amount", widget: "string" }
+              - { label: "Đơn vị (Tiếng Việt, vd / đêm · nguyên căn)", name: "unitVi", widget: "string" }
+              - { label: "Đơn vị (English)", name: "unitEn", widget: "string" }
+              - { label: "Ghi chú giá (Tiếng Việt)", name: "noteVi", widget: "string" }
+              - { label: "Ghi chú giá (English)", name: "noteEn", widget: "string" }
+          - label: "Nội dung trang web"
+            name: "copy"
+            widget: "object"
+            fields:
+              - label: "Tiếng Việt"
+                name: "vi"
+                widget: "object"
+                fields: &copy_fields
+                  - label: "Menu điều hướng"
+                    name: "nav"
+                    widget: "object"
+                    fields:
+                      - { label: "Biệt thự (trang chủ)", name: "villa", widget: "string" }
+                      - { label: "Phòng", name: "rooms", widget: "string" }
+                      - { label: "Thư viện", name: "gallery", widget: "string" }
+                      - { label: "Liên hệ", name: "contact", widget: "string" }
+                  - { label: "Nút Đặt phòng (header)", name: "cta", widget: "string" }
+                  - { label: "Hero — dòng nhỏ phía trên", name: "heroOverline", widget: "string" }
+                  - { label: "Hero — tiêu đề lớn (xuống dòng bằng Enter)", name: "heroTitle", widget: "text" }
+                  - { label: "Hero — mô tả ngắn", name: "heroLede", widget: "text" }
+                  - { label: "Hero — nút chính", name: "heroPrimary", widget: "string" }
+                  - { label: "Hero — nút phụ", name: "heroSecondary", widget: "string" }
+                  - { label: "Ô tìm — Nhận phòng", name: "searchIn", widget: "string" }
+                  - { label: "Ô tìm — Trả phòng", name: "searchOut", widget: "string" }
+                  - { label: "Ô tìm — Khách", name: "searchGuests", widget: "string" }
+                  - { label: "Ô tìm — nút Tìm", name: "searchGo", widget: "string" }
+                  - label: "4 số liệu nổi bật (vd 400 m², 5 phòng ngủ…)"
+                    name: "stats"
+                    widget: "list"
+                    fields:
+                      - { label: "Số", name: "value", widget: "string" }
+                      - { label: "Nhãn", name: "label", widget: "string" }
+                  - { label: "Giới thiệu — dòng nhỏ", name: "introOverline", widget: "string" }
+                  - { label: "Giới thiệu — tiêu đề", name: "introTitle", widget: "string" }
+                  - { label: "Giới thiệu — đoạn văn", name: "introBody", widget: "text" }
+                  - { label: "Giới thiệu — đoạn văn 2", name: "introBody2", widget: "text" }
+                  - { label: "Phòng — dòng nhỏ", name: "roomsOverline", widget: "string" }
+                  - { label: "Phòng — tiêu đề (xuống dòng bằng Enter)", name: "roomsTitle", widget: "text" }
+                  - { label: "Phòng — mô tả ngắn", name: "roomsLede", widget: "text" }
+                  - { label: "Phòng — nút xem tất cả", name: "roomsAll", widget: "string" }
+                  - { label: "Tiện nghi — dòng nhỏ", name: "amenOverline", widget: "string" }
+                  - { label: "Tiện nghi — tiêu đề", name: "amenTitle", widget: "string" }
+                  - { label: "Thư viện — dòng nhỏ", name: "galOverline", widget: "string" }
+                  - { label: "Thư viện — tiêu đề", name: "galTitle", widget: "string" }
+                  - { label: "Thư viện — chữ + số ảnh", name: "galMore", widget: "string" }
+                  - { label: "Đánh giá — dòng nhỏ", name: "quoteOverline", widget: "string" }
+                  - { label: "Băng đặt phòng — tiêu đề", name: "ctaTitle", widget: "string" }
+                  - { label: "Băng đặt phòng — mô tả", name: "ctaLede", widget: "text" }
+                  - { label: "Băng đặt phòng — nút", name: "ctaBtn", widget: "string" }
+                  - { label: "Nút Zalo", name: "ctaAlt", widget: "string" }
+                  - { label: "Chữ / đêm", name: "perNight", widget: "string" }
+                  - { label: "Chữ Chi tiết", name: "detail", widget: "string" }
+              - label: "English"
+                name: "en"
+                widget: "object"
+                fields: *copy_fields
+
+  - name: "rooms"
+    label: "Danh sách phòng"
+    files:
+      - name: "rooms"
+        label: "5 phòng ngủ"
+        file: "content/rooms.json"
+        fields:
+          - label: "Phòng"
+            name: "items"
+            widget: "list"
+            summary: "{{vi}}"
+            fields:
+              - { label: "Mã phòng (không dấu, không trùng)", name: "id", widget: "string" }
+              - { label: "Ảnh (trong thư mục assets)", name: "image", widget: "image" }
+              - { label: "Tên phòng (Tiếng Việt)", name: "vi", widget: "string" }
+              - { label: "Tên phòng (English)", name: "en", widget: "string" }
+              - { label: "Nhãn/hạng phòng (Tiếng Việt)", name: "flagVi", widget: "string" }
+              - { label: "Nhãn/hạng phòng (English)", name: "flagEn", widget: "string" }
+              - label: "3 thông tin ngắn (giường, khách, đặc điểm)"
+                name: "meta"
+                widget: "list"
+                fields:
+                  - label: "Biểu tượng (tên icon Lucide, vd bed-double, users, bath)"
+                    name: "icon"
+                    widget: "string"
+                  - { label: "Tiếng Việt", name: "vi", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+
+  - name: "amenities"
+    label: "Tiện nghi villa"
+    files:
+      - name: "amenities"
+        label: "Danh sách tiện nghi"
+        file: "content/amenities.json"
+        fields:
+          - label: "Tiện nghi"
+            name: "items"
+            widget: "list"
+            summary: "{{vi}}"
+            fields:
+              - { label: "Biểu tượng (tên icon Lucide)", name: "icon", widget: "string" }
+              - { label: "Tên (Tiếng Việt)", name: "vi", widget: "string" }
+              - { label: "Tên (English)", name: "en", widget: "string" }
+              - { label: "Ghi chú (Tiếng Việt, không bắt buộc)", name: "noteVi", widget: "string", required: false }
+              - { label: "Ghi chú (English, không bắt buộc)", name: "noteEn", widget: "string", required: false }
+
+  - name: "showcase"
+    label: "Không gian nổi bật (trang chủ)"
+    files:
+      - name: "showcase"
+        label: "5 không gian nổi bật"
+        file: "content/showcase.json"
+        fields:
+          - label: "Không gian"
+            name: "items"
+            widget: "list"
+            summary: "{{vi}}"
+            fields:
+              - { label: "Mã (không dấu, không trùng)", name: "id", widget: "string" }
+              - { label: "Tên (Tiếng Việt)", name: "vi", widget: "string" }
+              - { label: "Tên (English)", name: "en", widget: "string" }
+              - label: "Mô tả ngắn (Tiếng Việt — bọc <em>...</em> để in nghiêng)"
+                name: "blurbVi"
+                widget: "text"
+              - label: "Mô tả ngắn (English — bọc <em>...</em> để in nghiêng)"
+                name: "blurbEn"
+                widget: "text"
+              - label: "Ảnh (2–4 ảnh, lướt qua lại)"
+                name: "images"
+                widget: "list"
+                field: { label: "Ảnh", name: "image", widget: "image" }
+
+  - name: "gallery"
+    label: "Thư viện ảnh"
+    files:
+      - name: "gallery"
+        label: "Ảnh thư viện"
+        file: "content/gallery.json"
+        fields:
+          - label: "Ảnh"
+            name: "items"
+            widget: "list"
+            summary: "{{vi}}"
+            fields:
+              - { label: "Ảnh", name: "src", widget: "image" }
+              - { label: "Chú thích (Tiếng Việt)", name: "vi", widget: "string" }
+              - { label: "Chú thích (English)", name: "en", widget: "string" }
+
+  - name: "reviews"
+    label: "Đánh giá khách"
+    files:
+      - name: "reviews"
+        label: "Điểm & nhận xét"
+        file: "content/reviews.json"
+        fields:
+          - label: "Điểm trên các nền tảng"
+            name: "scores"
+            widget: "object"
+            fields:
+              - label: "Airbnb"
+                name: "airbnb"
+                widget: "object"
+                fields:
+                  - { label: "Điểm (vd 5.0)", name: "rating", widget: "number", value_type: "float" }
+                  - { label: "Số lượt đánh giá", name: "count", widget: "number" }
+              - label: "Agoda"
+                name: "agoda"
+                widget: "object"
+                fields:
+                  - { label: "Điểm (vd 10)", name: "rating", widget: "number", value_type: "float" }
+                  - { label: "Nhãn (Tiếng Việt, vd Trên cả tuyệt vời)", name: "labelVi", widget: "string" }
+                  - { label: "Nhãn (English, vd Exceptional)", name: "labelEn", widget: "string" }
+                  - { label: "Số lượt đánh giá", name: "count", widget: "number" }
+          - label: "Nhận xét khách (hiển thị trên trang chủ)"
+            name: "reviews"
+            widget: "list"
+            summary: "{{name}} — {{source}}"
+            fields:
+              - { label: "Số sao (1-5)", name: "rating", widget: "number" }
+              - { label: "Nguồn (Airbnb / Agoda)", name: "source", widget: "string" }
+              - { label: "Tên khách", name: "name", widget: "string" }
+              - { label: "Đến từ (Tiếng Việt)", name: "fromVi", widget: "string" }
+              - { label: "Đến từ (English)", name: "fromEn", widget: "string" }
+              - { label: "Nhận xét (Tiếng Việt)", name: "vi", widget: "text" }
+              - { label: "Nhận xét (English)", name: "en", widget: "text" }
