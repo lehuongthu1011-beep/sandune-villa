@@ -4,7 +4,7 @@
 //
 // Link iCal là bí mật (ai có link đều xem được lịch) nên KHÔNG đưa vào code —
 // đọc từ biến môi trường, set ở GitHub Actions → Settings → Secrets:
-//   AIRBNB_ICAL_URL, AGODA_ICAL_URL, BOOKING_ICAL_URL
+//   AIRBNB_ICAL_URL, AGODA_ICAL_URL, BOOKING_ICAL_URL, CTRIP_ICAL_URL
 //
 // Chạy thủ công: node scripts/sync-ota-calendars.mjs
 // Chạy tự động: xem .github/workflows/sync-calendars.yml (lịch mỗi vài tiếng)
@@ -15,6 +15,7 @@ const SOURCES = [
   { name: "airbnb", url: process.env.AIRBNB_ICAL_URL },
   { name: "agoda", url: process.env.AGODA_ICAL_URL },
   { name: "booking", url: process.env.BOOKING_ICAL_URL },
+  { name: "ctrip", url: process.env.CTRIP_ICAL_URL },
 ].filter((s) => s.url);
 
 const OUT_PATH = new URL("../content/unavailable-dates.json", import.meta.url);

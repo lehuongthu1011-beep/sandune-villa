@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Field,
@@ -24,7 +24,9 @@ import {
 import { useLang } from "@/lib/lang-context";
 import { SV_ASSETS, SV_CONTACT, SV_BANK } from "@/lib/ds-data";
 import { sendLead } from "@/lib/notify";
-import unavailableDates from "@/content/unavailable-dates.json";
+import fallbackUnavailableDates from "@/content/unavailable-dates.json";
+
+const CALENDAR_API = "https://sandune-ota-sync.lehuongthu1011.workers.dev/unavailable-dates";
 
 const RATE = 15000000;
 const money = (n) => n.toLocaleString("vi-VN") + "₫";
@@ -352,6 +354,17 @@ function Summary({ b, lang, nights, guests, extras, total }) {
 export function BookingPageContent({ onExit }) {
   const { lang } = useLang();
   const b0 = B[lang] || B.vi;
+  const [unavailableDates, setUnavailableDates] = useState(fallbackUnavailableDates);
+  useEffect(() => {
+    fetch(CALENDAR_API, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((dates) => {
+        if (Array.isArray(dates)) setUnavailableDates(dates);
+      })
+      .catch(() => {
+        /* giữ danh sách tĩnh cũ nếu Worker không gọi được */
+      });
+  }, []);
   const [step, setStep] = useState(0);
   const [range, setRange] = useState({ start: 12, end: 16 });
   const [g, setG] = useState({ adults: 4, kids: 2, infants: 0 });

@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sandune-ota-sync",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-16",
+  "triggers": {
+    "crons": ["* * * * *"]
+  },
+  "kv_namespaces": [
+    {
+      "binding": "CALENDAR_KV",
+      "id": "ee25b22f78854b91b0ea9e82ebdf411e"
+    }
+  ]
+}

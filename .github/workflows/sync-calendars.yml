@@ -1,11 +1,13 @@
-name: Sync OTA calendars
+name: Sync OTA calendars (backup)
+
+# Đồng bộ chính giờ chạy ở Cloudflare Worker (worker/, mỗi phút, web đọc
+# trực tiếp — xem worker/README.md). Workflow này chỉ chạy vài tiếng/lần để
+# làm mới content/unavailable-dates.json — bản dự phòng khi trình duyệt
+# khách không gọi được Worker, không phải nguồn chính nữa.
 
 on:
   schedule:
-    # 15 phút/lần. Repo công khai nên GitHub Actions miễn phí, không tốn gì
-    # thêm khi chạy thường xuyên. Đổi số ở đây nếu muốn nhanh/chậm hơn
-    # (tối thiểu GitHub cho phép là 5 phút, nhưng dưới 15 phút dễ bị trễ giờ).
-    - cron: "*/15 * * * *"
+    - cron: "20 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -26,6 +28,7 @@ jobs:
           AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
           AGODA_ICAL_URL: ${{ secrets.AGODA_ICAL_URL }}
           BOOKING_ICAL_URL: ${{ secrets.BOOKING_ICAL_URL }}
+          CTRIP_ICAL_URL: ${{ secrets.CTRIP_ICAL_URL }}
 
       - name: Commit nếu có thay đổi
         run: |
@@ -33,7 +36,7 @@ jobs:
           git config user.email "noreply@sandunevilla.vn"
           if ! git diff --quiet -- content/unavailable-dates.json; then
             git add content/unavailable-dates.json
-            git commit -m "Tự động đồng bộ lịch OTA"
+            git commit -m "Làm mới bản dự phòng lịch OTA"
             git push
           else
             echo "Không có thay đổi"
