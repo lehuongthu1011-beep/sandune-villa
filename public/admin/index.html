@@ -17,17 +17,20 @@
          quét theo khung hình để không làm chậm trình soạn thảo. -->
     <script>
       (function () {
-        var pattern = /Sign In with GitHub/i;
+        // Sveltia hiện "Đăng nhập bằng GitHub" khi trình duyệt dùng tiếng Việt,
+        // "Sign In with GitHub" khi dùng tiếng Anh.
+        var pattern = /Sign In with GitHub|Đăng nhập bằng GitHub/i;
         var queued = false;
         function fix() {
           queued = false;
           var buttons = document.querySelectorAll("button");
           for (var i = 0; i < buttons.length; i++) {
-            if (!pattern.test(buttons[i].textContent || "")) continue;
+            if (!pattern.test((buttons[i].textContent || "").normalize("NFC"))) continue;
             var walker = document.createTreeWalker(buttons[i], NodeFilter.SHOW_TEXT);
             var node;
             while ((node = walker.nextNode())) {
-              if (pattern.test(node.nodeValue)) node.nodeValue = node.nodeValue.replace(pattern, "Đăng nhập bằng email");
+              var text = node.nodeValue.normalize("NFC");
+              if (pattern.test(text)) node.nodeValue = text.replace(pattern, "Đăng nhập bằng email");
             }
           }
         }
