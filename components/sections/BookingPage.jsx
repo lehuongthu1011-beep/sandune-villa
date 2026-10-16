@@ -164,7 +164,7 @@ function Summary({ b, L, nights, guests, extras, total }) {
   rows.push({ label: b.clean, value: b.cleanFree, info: b.cleanInfo });
   rows.push({ label: b.tax, value: b.taxInc });
   return (
-    <Card elevation="flat" style={{ position: "sticky", top: 24 }}>
+    <Card elevation="flat" className="sv-r-sticky" style={{ position: "sticky", top: 24 }}>
       <Figure src={SV_ASSETS + "photo-pool-hammocks.png"} shape="full" ratio="16/9" alt="" />
       <div style={{ padding: "var(--space-5)" }}>
         <Overline>{L ? "Mỹ Khê · Đà Nẵng" : "My Khe · Da Nang"}</Overline>
@@ -280,7 +280,7 @@ export function BookingPageContent({ onExit }) {
       </header>
       <main style={{ maxWidth: 1180, margin: "0 auto", padding: "48px var(--gutter) 96px" }}>
         {step === 0 && (
-          <div style={twoCol}>
+          <div className="sv-r-split" style={twoCol}>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-7)" }}>
               <div>
                 <h2 style={h2}>{b.dTitle}</h2>
@@ -303,7 +303,7 @@ export function BookingPageContent({ onExit }) {
           </div>
         )}
         {step === 1 && (
-          <div style={twoCol}>
+          <div className="sv-r-split" style={twoCol}>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
               <h2 style={h2}>{b.gTitle}</h2>
               <Card padded elevation="flat">
@@ -347,7 +347,7 @@ export function BookingPageContent({ onExit }) {
           </div>
         )}
         {step === 2 && (
-          <div style={twoCol}>
+          <div className="sv-r-split" style={twoCol}>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
               <h2 style={h2}>{b.payTitle}</h2>
               <Card padded elevation="flat">

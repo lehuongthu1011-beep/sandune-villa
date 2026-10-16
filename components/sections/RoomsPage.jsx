@@ -15,7 +15,7 @@ export function RoomsPageContent() {
     <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "40px var(--gutter) var(--section-y)" }}>
       <Breadcrumbs items={[{ label: lang === "vi" ? "Trang chủ" : "Home", href: "/" }, { label: t.nav.rooms }]} />
       <SectionHeading style={{ marginTop: 20 }} overline={t.roomsOverline} title={t.roomsTitle} lede={t.roomsLede} />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "var(--space-11)", alignItems: "start" }}>
+      <div className="sv-r-split" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 340px", gap: "var(--space-11)", alignItems: "start" }}>
         <div>
           <Tabs
             value={tab}
@@ -37,7 +37,7 @@ export function RoomsPageContent() {
                   ]
             }
           />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "var(--grid-gap)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", gap: "var(--grid-gap)" }}>
             {SV_ROOMS.map((r, i) => (
               <RoomCard
                 key={r.id + i}
@@ -55,7 +55,7 @@ export function RoomsPageContent() {
           <SectionHeading overline={t.amenOverline} title={lang === "vi" ? "Có sẵn trong mọi phòng" : "In every room"} />
           <AmenityList columns={2} variant="compact" items={SV_AMENITIES.slice(0, 6).map((a) => ({ icon: a.icon, name: a[lang] }))} />
         </div>
-        <div style={{ position: "sticky", top: 100 }}>
+        <div className="sv-r-sticky" style={{ position: "sticky", top: 100 }}>
           <BookingWidget
             price="15.000.000₫"
             unit={lang === "vi" ? "/ đêm · nguyên căn" : "/ night · whole villa"}

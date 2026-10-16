@@ -55,7 +55,7 @@ function Statement() {
 function Strip() {
   const shots = ["photo-pool-waterfall-garden.png", "photo-entry-door.png", "photo-bed-tub-balcony.png", "photo-pool-dusk-loungers.png"];
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--space-2)", padding: "0 var(--space-2)" }}>
+    <div className="sv-r-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,minmax(0,1fr))", gap: "var(--space-2)", padding: "0 var(--space-2)" }}>
       {shots.map((s) => (
         <Figure key={s} src={SV_ASSETS + s} shape="soft" ratio="1/1" alt="" />
       ))}
@@ -122,7 +122,7 @@ function ShowcaseRow({ item, flip, onSelect }) {
     </div>
   );
   return (
-    <div style={{ ...wrap, display: "grid", gridTemplateColumns: flip ? "0.85fr 1.15fr" : "1.15fr 0.85fr", gap: "var(--space-13)", alignItems: "start", marginBottom: "var(--space-14)" }}>
+    <div className="sv-r-row" style={{ ...wrap, display: "grid", gridTemplateColumns: flip ? "minmax(0,0.85fr) minmax(0,1.15fr)" : "minmax(0,1.15fr) minmax(0,0.85fr)", gap: "var(--space-13)", alignItems: "start", marginBottom: "var(--space-14)" }}>
       {flip ? (
         <>
           {text}
@@ -183,7 +183,7 @@ function Facts() {
   const { t } = useLang();
   return (
     <section style={{ background: "var(--surface-page)", padding: "var(--section-y-compact) 0" }}>
-      <div style={{ ...wrap, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--space-8)" }}>
+      <div className="sv-r-4" style={{ ...wrap, display: "grid", gridTemplateColumns: "repeat(4,minmax(0,1fr))", gap: "var(--space-8)" }}>
         {t.stats.map((s) => (
           <Stat key={s.label} value={s.value} label={s.label} align="center" />
         ))}
@@ -231,7 +231,7 @@ function Reviews() {
           </div>
         </div>
       </div>
-      <div style={{ ...wrap, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "var(--space-9)", marginTop: "var(--space-12)" }}>
+      <div className="sv-r-3" style={{ ...wrap, display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "var(--space-9)", marginTop: "var(--space-12)" }}>
         {SV_REVIEWS.map((r) => (
           <Testimonial key={r.name} quote={r[lang]} name={r.name} from={lang === "vi" ? r.fromVi : r.fromEn} />
         ))}
@@ -258,7 +258,7 @@ function Place() {
       ];
   return (
     <section style={{ background: "var(--mist-100)", padding: "var(--section-y) 0" }}>
-      <div style={{ ...wrap, display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "var(--space-13)", alignItems: "center" }}>
+      <div className="sv-r-row" style={{ ...wrap, display: "grid", gridTemplateColumns: "minmax(0,1.15fr) minmax(0,0.85fr)", gap: "var(--space-13)", alignItems: "center" }}>
         <Figure src={SV_ASSETS + "photo-exterior-dusk.png"} ratio="4/3" alt="" />
         <div>
           <Overline>{L ? "Vị trí" : "The location"}</Overline>

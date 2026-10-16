@@ -275,6 +275,7 @@ function Logo({
     style: {
       height: height || 34,
       width: 'auto',
+      transform: 'translateY(-3px)',
       ...knock
     }
   }), /*#__PURE__*/React.createElement("span", {
@@ -1078,6 +1079,7 @@ function SiteHeader({
   onNavigate,
   variant = 'solid',
   lang = 'VI',
+  langs,
   onLangChange,
   ctaLabel = 'Đặt phòng',
   onCta,
@@ -1085,38 +1087,61 @@ function SiteHeader({
   style = {}
 }) {
   const inverse = variant === 'transparent';
+  const [open, setOpen] = React.useState(false);
+  const langOptions = langs && langs.length ? langs : [{ code: 'VI', label: 'VI' }, { code: 'EN', label: 'EN' }];
+  const close = () => setOpen(false);
+  const navCls = ['sv-header__nav', open && 'sv-header__nav--open'].filter(Boolean).join(' ');
   return /*#__PURE__*/React.createElement("header", {
-    className: ['sv-header', `sv-header--${variant}`, className].filter(Boolean).join(' '),
+    className: ['sv-header', `sv-header--${variant}`, open && 'sv-header--menu-open', className].filter(Boolean).join(' '),
     style: style
   }, /*#__PURE__*/React.createElement("div", {
     className: "sv-header__inner"
   }, /*#__PURE__*/React.createElement(DS.Logo, {
     variant: "lockup",
     height: 32,
-    inverse: inverse
-  }), /*#__PURE__*/React.createElement("nav", {
-    className: "sv-header__nav"
+    inverse: inverse && !open
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": open ? 'Đóng menu' : 'Mở menu',
+    "aria-expanded": open,
+    onClick: () => setOpen(v => !v),
+    className: ['sv-header__burger', inverse && !open && 'sv-header__burger--inverse'].filter(Boolean).join(' ')
+  }, /*#__PURE__*/React.createElement(DS.Icon, {
+    name: open ? 'x' : 'menu',
+    size: 22
+  })), /*#__PURE__*/React.createElement("nav", {
+    className: navCls
   }, links.map(l => /*#__PURE__*/React.createElement("a", {
     key: l.id || l.label,
     href: l.href || '#',
     onClick: e => {
       e.preventDefault();
+      close();
       onNavigate && onNavigate(l.id || l.label);
     },
-    className: ['sv-navlink', inverse && 'sv-navlink--inverse', active === (l.id || l.label) && 'sv-navlink--active'].filter(Boolean).join(' ')
-  }, l.label)), /*#__PURE__*/React.createElement("button", {
-    onClick: () => onLangChange && onLangChange(lang === 'VI' ? 'EN' : 'VI'),
-    className: ['sv-navlink', inverse && 'sv-navlink--inverse'].filter(Boolean).join(' '),
+    className: ['sv-navlink', inverse && !open && 'sv-navlink--inverse', active === (l.id || l.label) && 'sv-navlink--active'].filter(Boolean).join(' ')
+  }, l.label)), /*#__PURE__*/React.createElement("div", {
+    className: "sv-header__langs"
+  }, langOptions.map(o => /*#__PURE__*/React.createElement("button", {
+    key: o.code,
+    onClick: () => {
+      onLangChange && onLangChange(o.code);
+    },
+    className: ['sv-navlink', inverse && !open && 'sv-navlink--inverse', lang === o.code && 'sv-navlink--active'].filter(Boolean).join(' '),
     style: {
       background: 'none',
       border: 'none',
       cursor: 'pointer',
       letterSpacing: '.1em'
     }
-  }, lang === 'VI' ? 'VI / en' : 'vi / EN'), /*#__PURE__*/React.createElement(DS.Button, {
-    variant: inverse ? 'inverse' : 'primary',
+  }, o.label))), /*#__PURE__*/React.createElement(DS.Button, {
+    variant: inverse && !open ? 'inverse' : 'primary',
     size: "sm",
-    onClick: onCta
+    onClick: () => {
+      close();
+      onCta && onCta();
+    },
+    className: "sv-header__cta-mobile"
   }, ctaLabel))));
 }
 Object.assign(DS, { SiteHeader });

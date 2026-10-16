@@ -33,9 +33,9 @@ export function ContactPageContent({ onSent }) {
             : "The host replies within a few hours, in Vietnamese or English. The villa is let whole at 15,000,000₫ a night."
         }
       />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "var(--space-11)", alignItems: "start" }}>
+      <div className="sv-r-split" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 380px", gap: "var(--space-11)", alignItems: "start" }}>
         <Card padded elevation="flat">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-5)" }}>
+          <div className="sv-r-2" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: "var(--space-5)" }}>
             <Field label={L ? "Họ và tên" : "Full name"} required>
               <Input iconLeft="user" placeholder={L ? "Nguyễn Văn A" : "Jane Doe"} value={form.name} onChange={set("name")} />
             </Field>
