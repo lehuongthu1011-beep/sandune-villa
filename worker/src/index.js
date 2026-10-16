@@ -5,6 +5,8 @@
 //
 // Triển khai: xem worker/README.md
 
+import { handleCms } from "./cms.js";
+
 const ALLOWED_ORIGINS = ["https://sandunevilla.vn", "http://localhost:3000"];
 
 function corsHeaders(origin) {
@@ -133,6 +135,11 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
     const origin = req.headers.get("Origin") || "";
+
+    // Cổng đăng nhập /admin (email + mã 6 số) và cổng chuyển tiếp GitHub:
+    // /cms/auth*, /gh/api/*. Code ở src/cms.js.
+    const cmsResponse = await handleCms(req, env, url, origin);
+    if (cmsResponse) return cmsResponse;
 
     if (req.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders(origin) });

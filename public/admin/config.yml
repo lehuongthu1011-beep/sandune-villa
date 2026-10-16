@@ -3,10 +3,22 @@ backend:
   name: github
   repo: lehuongthu1011-beep/sandune-villa
   branch: main
-  # Cổng đăng nhập trung gian (Cloudflare Worker) — xem apps-script/ và
-  # references/04-cms-admin.md trong skill xây-website-ban-hang để dựng khi
-  # cần nhân sự đăng nhập bằng email thay vì tài khoản GitHub trực tiếp.
-  # base_url: https://sandune-auth.<ten-tai-khoan>.workers.dev
+  # Đăng nhập bằng email + mã 6 số qua Cloudflare Worker sandune-ota-sync
+  # (code ở worker/src/cms.js, cách cài ở worker/README.md). Nhân sự không cần
+  # tài khoản GitHub. Cổng chuyển mọi lệnh sang GitHub bằng mã của công ty.
+  base_url: https://sandune-ota-sync.lehuongthu1011.workers.dev
+  auth_endpoint: cms/auth
+  api_root: https://sandune-ota-sync.lehuongthu1011.workers.dev/gh/api/v3
+  # Ẩn ô "Sign In Using Access Token": nhân sự chỉ đăng nhập bằng email.
+  auth_methods: [oauth]
+  # Lịch sử commit trên GitHub đọc được bằng tiếng Việt. Cổng đăng nhập tự thêm
+  # tên nhân sự vào cuối mỗi dòng (vd "Cập nhật Danh sách phòng · Lan").
+  commit_messages:
+    create: 'Thêm {{collection}} {{slug}}'
+    update: 'Cập nhật {{collection}} {{slug}}'
+    delete: 'Xóa {{collection}} {{slug}}'
+    uploadMedia: 'Tải lên "{{path}}"'
+    deleteMedia: 'Xóa "{{path}}"'
 
 media_folder: "public/assets"
 public_folder: "/assets"

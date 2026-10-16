@@ -10,5 +10,34 @@
     <!-- Sveltia CMS: trang quản trị nội dung, đọc/ghi thẳng vào các file JSON
          trong thư mục /content qua GitHub. Không cần biết code vẫn sửa được. -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+
+    <!-- Màn đăng nhập của Sveltia chỉ có tiếng Anh. Đổi chữ nút để nhân sự biết
+         đây là đăng nhập bằng email, không cần tài khoản GitHub. Nếu Sveltia đổi
+         chữ ở bản mới thì sửa biểu thức bên dưới. Chỉ quét các nút và gộp lần
+         quét theo khung hình để không làm chậm trình soạn thảo. -->
+    <script>
+      (function () {
+        var pattern = /Sign In with GitHub/i;
+        var queued = false;
+        function fix() {
+          queued = false;
+          var buttons = document.querySelectorAll("button");
+          for (var i = 0; i < buttons.length; i++) {
+            if (!pattern.test(buttons[i].textContent || "")) continue;
+            var walker = document.createTreeWalker(buttons[i], NodeFilter.SHOW_TEXT);
+            var node;
+            while ((node = walker.nextNode())) {
+              if (pattern.test(node.nodeValue)) node.nodeValue = node.nodeValue.replace(pattern, "Đăng nhập bằng email");
+            }
+          }
+        }
+        new MutationObserver(function () {
+          if (!queued) {
+            queued = true;
+            requestAnimationFrame(fix);
+          }
+        }).observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
   </body>
 </html>

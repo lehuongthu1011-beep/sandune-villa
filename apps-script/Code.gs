@@ -12,6 +12,9 @@
  *      TELEGRAM_TOKEN   = token bot Telegram (lấy từ @BotFather)
  *      TELEGRAM_CHAT_ID = id nhóm/người nhận báo (xem hướng dẫn bên dưới)
  *      OWNER_EMAIL      = email chủ nhà nhận báo (vd trinhgia.jsc.vn@gmail.com)
+ *      OTP_MAIL_SECRET  = chuỗi bí mật dài (32 ký tự trở lên), cùng giá trị với secret
+ *                         OTP_MAIL_SECRET của Cloudflare Worker. Dùng để gửi mã
+ *                         đăng nhập trang /admin (xem worker/README.md).
  * 4. Triển khai → Triển khai mới → chọn "Ứng dụng web" (Web app):
  *      - Thực thi với tư cách: Tôi (email của bạn)
  *      - Người có quyền truy cập: Bất kỳ ai (Anyone)
@@ -31,16 +34,39 @@
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
-    var type = data.type === "contact" ? "contact" : "booking";
 
-    if (type === "booking") {
-      appendBookingRow(data);
-    } else {
-      appendContactRow(data);
+    // Gửi mã đăng nhập /admin cho nhân sự (do Cloudflare Worker gọi), không
+    // ghi Sheet, không báo Telegram.
+    if (data.type === "otp") {
+      return handleOtp(data);
     }
 
-    notifyTelegram(formatMessage(type, data));
-    notifyEmail(type, data);
+    var type = data.type === "contact" ? "contact" : "booking";
+
+    // Chặn đơn rác: đơn đặt phòng thật luôn có mã bắt đầu bằng "SDV-".
+    if (type === "booking" && !(typeof data.ref === "string" && data.ref.indexOf("SDV-") === 0)) {
+      throw new Error("Mã đặt phòng không hợp lệ");
+    }
+
+    // Khoá để 2 đơn đến cùng lúc không ghi đè lên nhau trong Sheet.
+    var lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+    try {
+      if (type === "booking") {
+        appendBookingRow(data);
+      } else {
+        appendContactRow(data);
+      }
+    } finally {
+      lock.releaseLock();
+    }
+
+    // Mỗi kênh báo tự bắt lỗi riêng: Telegram hỏng thì email vẫn gửi, và
+    // đơn đã nằm trong Sheet rồi nên không bao giờ mất.
+    var warnings = [];
+    try { notifyTelegram(formatMessage(type, data)); } catch (err) { warnings.push("telegram: " + err); }
+    try { notifyEmail(type, data); } catch (err) { warnings.push("email: " + err); }
+    if (warnings.length) console.error(warnings.join(" | "));
 
     return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(
       ContentService.MimeType.JSON
@@ -50,6 +76,43 @@ function doPost(e) {
       ContentService.MimeType.JSON
     );
   }
+}
+
+/**
+ * Gửi email chứa mã đăng nhập /admin. Chỉ chạy khi yêu cầu kèm đúng khoá bí mật
+ * OTP_MAIL_SECRET (đặt trong Script Properties, cùng giá trị với secret
+ * OTP_MAIL_SECRET của Cloudflare Worker). Không có khoá hoặc sai khoá thì từ
+ * chối, vì URL Web app này công khai và nếu không thì ai cũng gửi được email
+ * từ tài khoản của chủ nhà.
+ */
+function handleOtp(d) {
+  var secret = PropertiesService.getScriptProperties().getProperty("OTP_MAIL_SECRET");
+  if (!secret || typeof d.secret !== "string" || d.secret !== secret) {
+    throw new Error("Sai khoá bí mật");
+  }
+  var email = String(d.email || "").trim();
+  var code = String(d.code || "");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 254) {
+    throw new Error("Email không hợp lệ");
+  }
+  if (!/^\d{6}$/.test(code)) {
+    throw new Error("Mã không hợp lệ");
+  }
+  var name = String(d.name || "").replace(/[\r\n]+/g, " ").slice(0, 60);
+  var minutes = Math.max(1, Math.min(60, Number(d.minutes) || 10));
+
+  MailApp.sendEmail(
+    email,
+    "Mã đăng nhập quản trị SanDune Villa",
+    "Xin chào" + (name ? " " + name : "") + ",\n\n" +
+      "Mã đăng nhập trang quản trị SanDune Villa của bạn là: " + code + "\n\n" +
+      "Mã có hiệu lực " + minutes + " phút và chỉ dùng được một lần. " +
+      "Nếu bạn không yêu cầu mã này, hãy bỏ qua email này."
+  );
+
+  return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(
+    ContentService.MimeType.JSON
+  );
 }
 
 function getSheet(name) {
@@ -89,7 +152,7 @@ function appendContactRow(d) {
 function formatMessage(type, d) {
   if (type === "booking") {
     return (
-      "🏝 *Yêu cầu đặt phòng mới*\n" +
+      "🏝 Yêu cầu đặt phòng mới\n" +
       "Mã: " + d.ref + "\n" +
       "Khách: " + d.firstName + " " + d.lastName + "\n" +
       "SĐT: " + d.phone + " · Email: " + d.email + "\n" +
@@ -100,7 +163,7 @@ function formatMessage(type, d) {
     );
   }
   return (
-    "✉️ *Yêu cầu liên hệ mới*\n" +
+    "✉️ Yêu cầu liên hệ mới\n" +
     "Tên: " + d.name + "\n" +
     "SĐT: " + d.phone + " · Email: " + d.email + "\n" +
     "Số khách: " + d.guests + " · Ngày dự kiến: " + d.dates + "\n" +
@@ -113,12 +176,17 @@ function notifyTelegram(text) {
   var token = props.getProperty("TELEGRAM_TOKEN");
   var chatId = props.getProperty("TELEGRAM_CHAT_ID");
   if (!token || !chatId) return;
-  UrlFetchApp.fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+  // Gửi văn bản thuần (không parse_mode): email/tên khách có dấu _ hoặc * sẽ
+  // làm Telegram từ chối tin nếu dùng Markdown.
+  var res = UrlFetchApp.fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
     method: "post",
     contentType: "application/json",
-    payload: JSON.stringify({ chat_id: chatId, text: text, parse_mode: "Markdown" }),
+    payload: JSON.stringify({ chat_id: chatId, text: text }),
     muteHttpExceptions: true,
   });
+  if (res.getResponseCode() !== 200) {
+    throw new Error("Telegram trả mã " + res.getResponseCode() + ": " + res.getContentText());
+  }
 }
 
 function notifyEmail(type, d) {
@@ -127,4 +195,25 @@ function notifyEmail(type, d) {
   var subject =
     type === "booking" ? "SanDune Villa — Yêu cầu đặt phòng " + d.ref : "SanDune Villa — Yêu cầu liên hệ mới";
   MailApp.sendEmail(owner, subject, formatMessage(type, d));
+}
+
+/**
+ * CHẠY THỬ SAU KHI CÀI ĐẶT: chọn hàm "testSetup" ở thanh trên cùng của trình
+ * soạn thảo Apps Script rồi bấm Chạy. Hàm này tạo 1 đơn thử (mã SDV-TEST),
+ * ghi vào Sheet, báo Telegram và email. Lần đầu chạy, Google sẽ hỏi cấp quyền
+ * (Sheet, gửi email, kết nối ngoài): bấm Cho phép. Xong thì xoá dòng thử trong
+ * tab "Đặt phòng".
+ */
+function testSetup() {
+  var fake = {
+    type: "booking", ref: "SDV-TEST", firstName: "Thử", lastName: "Nghiệm",
+    email: "thu_nghiem@example.com", phone: "0900000000", nationality: "VN",
+    checkIn: "2026-12-01", checkOut: "2026-12-03", nights: 2, adults: 2, kids: 0,
+    infants: 0, guests: 2, arrive: "14:00", notes: "Đơn thử, bỏ qua", paymentMethod: "Chuyển khoản",
+    total: 30000000, lang: "vi",
+  };
+  appendBookingRow(fake);
+  notifyTelegram(formatMessage("booking", fake));
+  notifyEmail("booking", fake);
+  Logger.log("Xong: kiểm tra Sheet, Telegram và hộp thư.");
 }
