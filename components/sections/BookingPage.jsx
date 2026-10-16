@@ -22,8 +22,9 @@ import {
   AmenityList,
 } from "@/components/ds";
 import { useLang } from "@/lib/lang-context";
-import { SV_ASSETS, SV_CONTACT } from "@/lib/ds-data";
+import { SV_ASSETS, SV_CONTACT, SV_BANK } from "@/lib/ds-data";
 import { sendLead } from "@/lib/notify";
+import unavailableDates from "@/content/unavailable-dates.json";
 
 const RATE = 15000000;
 const money = (n) => n.toLocaleString("vi-VN") + "₫";
@@ -64,7 +65,11 @@ const B = {
     cardName: "Tên trên thẻ",
     exp: "Hết hạn",
     cvc: "CVC",
-    bankNote: "Mã VietQR sẽ hiện ở bước xác nhận. Giữ phòng trong 60 phút cho tới khi nhận được chuyển khoản.",
+    bankNote: "Giữ phòng trong 60 phút cho tới khi nhận được chuyển khoản.",
+    bankScan: "Quét mã QR bằng app ngân hàng hoặc ví điện tử để chuyển khoản đúng số tiền.",
+    bankForeign: "Khách nước ngoài không thanh toán được qua mã QR, vui lòng nhắn Telegram:",
+    bankHolder: "Chủ tài khoản",
+    bankAccountLabel: "Số tài khoản",
     cashNote: "Cần đặt cọc 20% để giữ phòng. Phần còn lại thanh toán khi nhận phòng.",
     policy: "Chính sách huỷ",
     policyBody: "Huỷ trước 7 ngày được hoàn 100%. Từ 7 đến 3 ngày hoàn 50%. Trong vòng 3 ngày không hoàn.",
@@ -128,7 +133,11 @@ const B = {
     cardName: "Name on card",
     exp: "Expiry",
     cvc: "CVC",
-    bankNote: "The VietQR code appears on the confirmation step. We hold the dates for 60 minutes until the transfer lands.",
+    bankNote: "We hold the dates for 60 minutes until the transfer lands.",
+    bankScan: "Scan the QR code with your banking app or e-wallet to transfer the exact amount.",
+    bankForeign: "If you can't pay by QR code from overseas, message us on Telegram:",
+    bankHolder: "Account holder",
+    bankAccountLabel: "Account number",
     cashNote: "A 20% deposit holds the dates. The balance is due on arrival.",
     policy: "Cancellation",
     policyBody: "Cancel more than 7 days ahead for a full refund. Between 7 and 3 days, 50%. Inside 3 days, no refund.",
@@ -192,7 +201,11 @@ const B = {
     cardName: "카드 소유자명",
     exp: "유효기간",
     cvc: "CVC",
-    bankNote: "VietQR 코드는 확인 단계에서 표시됩니다. 입금이 확인될 때까지 60분간 날짜가 보류됩니다.",
+    bankNote: "입금이 확인될 때까지 60분간 날짜가 보류됩니다.",
+    bankScan: "은행 앱이나 전자지갑으로 QR 코드를 스캔해 정확한 금액을 송금해주세요.",
+    bankForeign: "해외에서 QR 코드로 결제가 어려우시면 텔레그램으로 문의해주세요:",
+    bankHolder: "예금주",
+    bankAccountLabel: "계좌번호",
     cashNote: "날짜 확보를 위해 20% 보증금이 필요합니다. 잔액은 현장에서 결제합니다.",
     policy: "취소 정책",
     policyBody: "7일 전 취소 시 100% 환불. 7일~3일 전 취소 시 50% 환불. 3일 이내 취소 시 환불 불가.",
@@ -256,7 +269,11 @@ const B = {
     cardName: "持卡人姓名",
     exp: "有效期",
     cvc: "安全码",
-    bankNote: "VietQR码将在确认步骤显示。我们将为您保留房源60分钟，直至收到转账。",
+    bankNote: "我们将为您保留房源60分钟，直至收到转账。",
+    bankScan: "请使用银行APP或电子钱包扫描二维码，转账准确金额。",
+    bankForeign: "如您在海外无法通过二维码付款，请通过Telegram联系我们：",
+    bankHolder: "账户持有人",
+    bankAccountLabel: "账号",
     cashNote: "需支付20%定金以保留日期，余款到店支付。",
     policy: "取消政策",
     policyBody: "提前7天以上取消全额退款。7天至3天内取消退款50%。3天内取消不予退款。",
@@ -421,7 +438,7 @@ export function BookingPageContent({ onExit }) {
                 <h2 style={h2}>{b.dTitle}</h2>
                 <p style={{ color: "var(--text-secondary)", fontSize: "var(--size-body-sm)", marginTop: 8 }}>{b.dLede}</p>
               </div>
-              <DateRangePicker year={2026} month={7} start={range.start} end={range.end} unavailable={[3, 4, 5, 22, 23]} onChange={setRange} lang={lang} style={{ maxWidth: 340 }} />
+              <DateRangePicker year={2026} month={7} start={range.start} end={range.end} unavailableDates={unavailableDates} onChange={setRange} lang={lang} style={{ maxWidth: 340 }} />
               <Card padded elevation="flat" style={{ maxWidth: 420 }}>
                 <GuestStepper label={b.adults[0]} sublabel={b.adults[1]} value={g.adults} onChange={(v) => setG((s) => ({ ...s, adults: v }))} max={10} />
                 <Divider />
@@ -509,7 +526,32 @@ export function BookingPageContent({ onExit }) {
                     </Field>
                   </div>
                 )}
-                {method === "bank" && <p style={{ marginTop: 20, fontSize: "var(--size-body-sm)", color: "var(--text-secondary)", lineHeight: 1.7 }}>{b.bankNote}</p>}
+                {method === "bank" && (
+                  <div style={{ marginTop: 20, display: "flex", gap: "var(--space-6)", flexWrap: "wrap", alignItems: "flex-start" }}>
+                    <img
+                      src={`https://img.vietqr.io/image/${SV_BANK.bin}-${SV_BANK.accountNumber}-compact2.png?amount=${total}&addInfo=${encodeURIComponent(ref)}&accountName=${encodeURIComponent(SV_BANK.accountName)}`}
+                      alt="VietQR"
+                      style={{ width: 200, height: 200, border: "1px solid var(--border-subtle)" }}
+                    />
+                    <div style={{ flex: "1 1 220px", fontSize: "var(--size-body-sm)", color: "var(--text-secondary)", lineHeight: 1.7 }}>
+                      <p style={{ margin: 0, fontWeight: 600, color: "var(--text-primary)" }}>{SV_BANK.bankName}</p>
+                      <p style={{ margin: "4px 0 0" }}>
+                        {b.bankAccountLabel}: <strong>{SV_BANK.accountNumber}</strong>
+                      </p>
+                      <p style={{ margin: "4px 0 0" }}>
+                        {b.bankHolder}: <strong>{SV_BANK.accountName}</strong>
+                      </p>
+                      <p style={{ margin: "12px 0 0" }}>{b.bankScan}</p>
+                      <p style={{ margin: "8px 0 0" }}>{b.bankNote}</p>
+                      <p style={{ margin: "12px 0 0" }}>
+                        {b.bankForeign}{" "}
+                        <a href={`https://t.me/${SV_BANK.telegram.replace(/[^\d]/g, "")}`} style={{ color: "var(--text-brand)" }}>
+                          {SV_BANK.telegram}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                )}
                 {method === "cash" && <p style={{ marginTop: 20, fontSize: "var(--size-body-sm)", color: "var(--text-secondary)", lineHeight: 1.7 }}>{b.cashNote}</p>}
               </Card>
               <Card padded elevation="flat">

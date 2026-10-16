@@ -20,7 +20,7 @@ function Hero() {
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(28,34,18,.52) 0%, rgba(28,34,18,.34) 55%, rgba(28,34,18,.44) 100%)" }} />
       <div style={{ position: "absolute", inset: 0, background: "var(--gradient-protect)" }} />
       <div style={{ position: "relative", textAlign: "center" }}>
-        <img src="/assets/logo-mark.png" alt="KUANS" style={{ height: 92, width: "auto", filter: "brightness(0) invert(1)" }} />
+        <img src="/assets/logo-mark.png" alt="KUANS" style={{ height: 92, width: "auto", margin: "0 auto", filter: "brightness(0) invert(1)" }} />
         <div style={{ marginTop: "var(--space-3)", textAlign: "center" }}>
           <div style={{ fontFamily: "var(--font-display)", fontSize: 25, letterSpacing: ".22em", textTransform: "uppercase", color: "var(--text-inverse)" }}>
             SanDune Villa

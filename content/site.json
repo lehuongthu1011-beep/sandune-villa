@@ -8,6 +8,14 @@
     "addressZh": "岘港山茶美溪1号43号",
     "host": "Kuan"
   },
+  "bank": {
+    "bankName": "Vietcombank",
+    "bin": "970436",
+    "accountNumber": "9963159933",
+    "accountName": "TRINH VIET QUAN",
+    "branch": "CN Tây Hồ",
+    "telegram": "+84963159933"
+  },
   "rate": {
     "amount": "15.000.000₫",
     "unitVi": "/ đêm · nguyên căn",

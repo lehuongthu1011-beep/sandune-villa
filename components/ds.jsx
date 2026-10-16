@@ -289,7 +289,6 @@ function Logo({
     style: {
       height: height || 34,
       width: 'auto',
-      transform: 'translateY(-3px)',
       ...knock
     }
   }), /*#__PURE__*/React.createElement("span", {
@@ -654,6 +653,7 @@ function DateRangePicker({
   end = null,
   onChange,
   unavailable = [],
+  unavailableDates = [],
   lang = 'vi',
   className = '',
   style = {}
@@ -663,6 +663,10 @@ function DateRangePicker({
   const navLabel = CAL_NAV_LABEL[lang] || CAL_NAV_LABEL.vi;
   const [m, setM] = React.useState(month);
   const [y, setY] = React.useState(year);
+  if (unavailableDates.length) {
+    const prefix = `${y}-${String(m + 1).padStart(2, '0')}-`;
+    unavailable = unavailableDates.filter(d => d.startsWith(prefix)).map(d => parseInt(d.slice(8, 10), 10));
+  }
   const first = new Date(y, m, 1);
   const offset = (first.getDay() + 6) % 7;
   const days = new Date(y, m + 1, 0).getDate();

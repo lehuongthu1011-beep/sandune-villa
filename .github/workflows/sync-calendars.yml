@@ -1,0 +1,38 @@
+name: Sync OTA calendars
+
+on:
+  schedule:
+    # 4 tiếng/lần (giờ UTC). Đổi lịch ở đây nếu muốn đồng bộ nhanh/chậm hơn.
+    - cron: "15 */4 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Lấy lịch từ Airbnb/Agoda/Booking.com
+        run: node scripts/sync-ota-calendars.mjs
+        env:
+          AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
+          AGODA_ICAL_URL: ${{ secrets.AGODA_ICAL_URL }}
+          BOOKING_ICAL_URL: ${{ secrets.BOOKING_ICAL_URL }}
+
+      - name: Commit nếu có thay đổi
+        run: |
+          git config user.name "sandune-bot"
+          git config user.email "noreply@sandunevilla.vn"
+          if ! git diff --quiet -- content/unavailable-dates.json; then
+            git add content/unavailable-dates.json
+            git commit -m "Tự động đồng bộ lịch OTA"
+            git push
+          else
+            echo "Không có thay đổi"
+          fi
