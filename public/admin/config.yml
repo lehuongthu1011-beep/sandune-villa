@@ -287,7 +287,9 @@ collections:
         label: "Đơn khách đã thanh toán"
         file: "content/payments.json"
         fields:
-          - label: "Đơn đã thanh toán. Chỉ đơn có mặt trong danh sách này mới khoá ngày trên web và các kênh Airbnb, Agoda, Booking.com, Ctrip. Khi khách huỷ, xoá đơn khỏi danh sách để mở lại ngày"
+          - label: "Danh sách đơn đã thanh toán"
+            hint: "Chỉ đơn có mặt trong danh sách này mới khoá ngày trên web và các kênh Airbnb, Agoda, Booking.com, Ctrip. Khi khách huỷ, xoá đơn khỏi danh sách để mở lại ngày."
+            label_singular: "đơn đã thanh toán"
             name: "paid"
             widget: "list"
             required: false
