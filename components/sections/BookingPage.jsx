@@ -26,7 +26,8 @@ import { SV_ASSETS, SV_CONTACT, SV_BANK } from "@/lib/ds-data";
 import { sendLead } from "@/lib/notify";
 import fallbackUnavailableDates from "@/content/unavailable-dates.json";
 
-const CALENDAR_API = "https://sandune-ota-sync.lehuongthu1011.workers.dev/unavailable-dates";
+const WORKER_BASE = "https://sandune-ota-sync.lehuongthu1011.workers.dev";
+const CALENDAR_API = WORKER_BASE + "/unavailable-dates";
 
 const RATE = 15000000;
 const money = (n) => n.toLocaleString("vi-VN") + "₫";
@@ -307,10 +308,28 @@ const B = {
   },
 };
 
-const dateLabel = (range, b) => {
+const MONTH_SHORT = {
+  vi: ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12"],
+  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  ko: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+  zh: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+};
+const formatIsoDate = (iso, lang) => {
+  const [y, m, d] = iso.split("-").map(Number);
+  const mn = (MONTH_SHORT[lang] || MONTH_SHORT.vi)[m - 1];
+  if (lang === "ko") return `${y}년 ${mn} ${d}일`;
+  if (lang === "zh") return `${y}年${mn}${d}日`;
+  return `${d} ${mn} ${y}`;
+};
+const nightsBetween = (startIso, endIso) => {
+  const a = new Date(startIso + "T00:00:00Z");
+  const c = new Date(endIso + "T00:00:00Z");
+  return Math.max(1, Math.round((c - a) / 86400000));
+};
+const dateLabel = (range, b, lang) => {
   if (range.start == null) return b.pickDates;
-  const m = b.monthLabel;
-  return range.end == null ? range.start + " " + m : range.start + " – " + range.end + " " + m;
+  if (range.end == null) return formatIsoDate(range.start, lang);
+  return formatIsoDate(range.start, lang) + " – " + formatIsoDate(range.end, lang);
 };
 
 function Summary({ b, lang, nights, guests, extras, total }) {
@@ -366,7 +385,7 @@ export function BookingPageContent({ onExit }) {
       });
   }, []);
   const [step, setStep] = useState(0);
-  const [range, setRange] = useState({ start: 12, end: 16 });
+  const [range, setRange] = useState({ start: "2026-08-12", end: "2026-08-16" });
   const [g, setG] = useState({ adults: 4, kids: 2, infants: 0 });
   const [form, setForm] = useState({ last: "", first: "", email: "", phone: "", nat: "", arrive: "", notes: "" });
   const [picked] = useState({});
@@ -374,18 +393,19 @@ export function BookingPageContent({ onExit }) {
   const [card, setCard] = useState({ no: "", name: "", exp: "", cvc: "" });
   const [agree, setAgree] = useState(true);
   const [warn, setWarn] = useState(null);
-  const nights = range.end && range.start ? Math.max(1, range.end - range.start) : 1;
+  const nights = range.end && range.start ? nightsBetween(range.start, range.end) : 1;
   const guests = g.adults + g.kids + g.infants;
   const extras = ADDONS.filter((x) => picked[x.id]).map((x) => ({ ...x, total: x.price }));
   const total = RATE * nights + extras.reduce((s, x) => s + x.total, 0);
-  const b = { ...b0, dateText: dateLabel(range, b0) };
+  const b = { ...b0, dateText: dateLabel(range, b0, lang) };
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const go = (n) => {
     setWarn(null);
     setStep(n);
     window.scrollTo(0, 0);
   };
-  const ref = "SDV-2608-" + String(4000 + nights * 37 + guests * 11).slice(0, 4);
+  const refYYMM = range.start ? range.start.slice(2, 4) + range.start.slice(5, 7) : "2608";
+  const ref = "SDV-" + refYYMM + "-" + String(4000 + nights * 37 + guests * 11).slice(0, 4);
   const sum = <Summary b={b} lang={lang} nights={nights} guests={guests} extras={extras} total={total} />;
   const twoCol = { display: "grid", gridTemplateColumns: "minmax(0,1fr) 320px", gap: "var(--space-9)", alignItems: "start" };
   const h2 = { fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "var(--size-display-sm)", margin: 0 };
@@ -423,6 +443,13 @@ export function BookingPageContent({ onExit }) {
       paymentMethod: method,
       total,
     });
+    // Ghi nhận đặt phòng trực tiếp vào Worker để khoá ngày trên web và xuất
+    // ra link iCal cho các kênh OTA khác (không chặn giao diện nếu lỗi).
+    fetch(WORKER_BASE + "/book", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ref, start: range.start, end: range.end }),
+    }).catch(() => {});
     go(3);
   };
 
@@ -594,14 +621,7 @@ export function BookingPageContent({ onExit }) {
               {b.code} {ref}
             </Overline>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "var(--size-display-md)", margin: "14px 0 0" }}>
-              {b.doneTitle}{" "}
-              {lang === "vi"
-                ? range.start + " tháng 8"
-                : lang === "ko"
-                  ? "8월 " + range.start + "일"
-                  : lang === "zh"
-                    ? "8月" + range.start + "日"
-                    : "August " + range.start}
+              {b.doneTitle} {formatIsoDate(range.start, lang)}
             </h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "var(--size-body-lg)", marginTop: 16 }}>
               {lang === "vi"

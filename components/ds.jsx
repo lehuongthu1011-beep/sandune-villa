@@ -673,17 +673,21 @@ function DateRangePicker({
   const cells = [];
   for (let i = 0; i < offset; i++) cells.push(null);
   for (let d = 1; d <= days; d++) cells.push(d);
+  // Ngày chọn là chuỗi ISO (năm-tháng-ngày) đầy đủ, không chỉ số ngày —
+  // để chọn đúng khi khách bấm sang tháng khác rồi mới chọn ngày.
+  const isoFor = d => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
   const pick = d => {
     if (!onChange) return;
+    const iso = isoFor(d);
     if (start == null || start != null && end != null) onChange({
-      start: d,
+      start: iso,
       end: null
-    });else if (d <= start) onChange({
-      start: d,
+    });else if (iso <= start) onChange({
+      start: iso,
       end: null
     });else onChange({
       start,
-      end: d
+      end: iso
     });
   };
   return /*#__PURE__*/React.createElement("div", {
@@ -727,9 +731,10 @@ function DateRangePicker({
       key: `e${i}`
     });
     const off = unavailable.includes(d);
-    const isStart = d === start,
-      isEnd = d === end;
-    const inRange = start != null && end != null && d > start && d < end;
+    const iso = isoFor(d);
+    const isStart = iso === start,
+      isEnd = iso === end;
+    const inRange = start != null && end != null && iso > start && iso < end;
     const cls = ['sv-cal__day', off && 'sv-cal__day--muted', inRange && 'sv-cal__day--in', (isStart || isEnd) && 'sv-cal__day--edge', isStart && end != null && 'sv-cal__day--start', isEnd && 'sv-cal__day--end'].filter(Boolean).join(' ');
     return /*#__PURE__*/React.createElement("button", {
       key: d,

@@ -1,5 +1,7 @@
-// Cloudflare Worker: đồng bộ lịch đặt từ Airbnb/Agoda/Booking.com mỗi phút,
-// lưu vào KV, và cấp API cho web đọc trực tiếp lúc tải trang.
+// Cloudflare Worker: đồng bộ lịch đặt từ Airbnb/Agoda/Booking.com/Ctrip mỗi
+// phút, lưu vào KV, cấp API cho web đọc trực tiếp lúc tải trang, ghi nhận
+// đặt phòng trực tiếp trên web, và xuất link iCal để dán ngược vào các kênh
+// OTA khác (tránh trùng lịch 2 chiều).
 //
 // Triển khai: xem worker/README.md
 
@@ -9,7 +11,8 @@ function corsHeaders(origin) {
   const allow = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
     "access-control-allow-origin": allow,
-    "access-control-allow-methods": "GET, OPTIONS",
+    "access-control-allow-methods": "GET, POST, OPTIONS",
+    "access-control-allow-headers": "content-type",
     "cache-control": "no-store",
   };
 }
@@ -23,6 +26,8 @@ function addDays(iso, n) {
   d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 }
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // Phân tích tối giản 1 file iCal: lấy DTSTART/DTEND (VALUE=DATE, all-day) của
 // mọi VEVENT. Ngày trả phòng (DTEND) không tính là bị khoá vì khách rời đi
@@ -60,6 +65,16 @@ async function fetchIcs(url, name) {
   }
 }
 
+async function getDirectBookings(env) {
+  const raw = await env.CALENDAR_KV.get("direct-bookings");
+  try {
+    const list = raw ? JSON.parse(raw) : [];
+    return Array.isArray(list) ? list : [];
+  } catch {
+    return [];
+  }
+}
+
 async function sync(env) {
   const all = new Set();
   const results = await Promise.all([
@@ -69,10 +84,45 @@ async function sync(env) {
     fetchIcs(env.CTRIP_ICAL_URL, "ctrip"),
   ]);
   results.flat().forEach((d) => all.add(d));
+
+  // Đặt phòng trực tiếp trên web cũng phải khoá ngày, không chỉ các kênh OTA.
+  const direct = await getDirectBookings(env);
+  for (const b of direct) {
+    let cur = b.start;
+    while (cur < b.end) {
+      all.add(cur);
+      cur = addDays(cur, 1);
+    }
+  }
+
   const sorted = [...all].sort();
   await env.CALENDAR_KV.put("unavailable-dates", JSON.stringify(sorted));
   await env.CALENDAR_KV.put("unavailable-dates-updated-at", new Date().toISOString());
   return sorted;
+}
+
+function toIcsDate(iso) {
+  return iso.replace(/-/g, "");
+}
+
+// Xuất lịch đặt phòng trực tiếp trên web dạng iCal — dán link này vào mục
+// "Import calendar" / "Sync calendars" của Airbnb/Agoda/Booking.com/Ctrip để
+// các kênh đó tự khoá ngày khi có khách đặt thẳng trên web.
+function buildIcs(bookings) {
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//SanDune Villa//Direct Bookings//VI", "CALSCALE:GREGORIAN"];
+  for (const b of bookings) {
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:${b.ref}@sandunevilla.vn`,
+      `DTSTAMP:${toIcsDate(b.createdAt || b.start)}T000000Z`,
+      `DTSTART;VALUE=DATE:${toIcsDate(b.start)}`,
+      `DTEND;VALUE=DATE:${toIcsDate(b.end)}`,
+      "SUMMARY:Đã đặt — SanDune Villa (web)",
+      "END:VEVENT"
+    );
+  }
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n");
 }
 
 export default {
@@ -93,6 +143,48 @@ export default {
       const updatedAt = await env.CALENDAR_KV.get("unavailable-dates-updated-at");
       return new Response(data, {
         headers: { ...corsHeaders(origin), "content-type": "application/json", "x-updated-at": updatedAt || "" },
+      });
+    }
+
+    if (url.pathname === "/export.ics") {
+      const direct = await getDirectBookings(env);
+      return new Response(buildIcs(direct), {
+        headers: { "content-type": "text/calendar; charset=utf-8", "cache-control": "public, max-age=60" },
+      });
+    }
+
+    if (url.pathname === "/book" && req.method === "POST") {
+      let body;
+      try {
+        body = await req.json();
+      } catch {
+        return new Response(JSON.stringify({ ok: false, error: "invalid JSON" }), {
+          status: 400,
+          headers: { ...corsHeaders(origin), "content-type": "application/json" },
+        });
+      }
+      const { ref, start, end } = body || {};
+      if (
+        typeof ref !== "string" ||
+        !ref.startsWith("SDV-") ||
+        ref.length > 40 ||
+        !ISO_DATE_RE.test(start) ||
+        !ISO_DATE_RE.test(end) ||
+        end <= start
+      ) {
+        return new Response(JSON.stringify({ ok: false, error: "invalid booking" }), {
+          status: 400,
+          headers: { ...corsHeaders(origin), "content-type": "application/json" },
+        });
+      }
+      const direct = await getDirectBookings(env);
+      if (!direct.some((b) => b.ref === ref)) {
+        direct.push({ ref, start, end, createdAt: new Date().toISOString() });
+        await env.CALENDAR_KV.put("direct-bookings", JSON.stringify(direct));
+      }
+      await sync(env);
+      return new Response(JSON.stringify({ ok: true }), {
+        headers: { ...corsHeaders(origin), "content-type": "application/json" },
       });
     }
 
