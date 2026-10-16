@@ -77,7 +77,37 @@ async function getDirectBookings(env) {
   }
 }
 
+// Chỉ đơn ĐÃ THANH TOÁN mới khoá ngày. Nhân sự đổi cột "Trạng thái" trong
+// Google Sheet thành "Đã thanh toán"; mỗi lần đồng bộ Worker hỏi lại Apps Script
+// và ghi đè danh sách. Đổi lại "Chờ thanh toán" hoặc "Huỷ" thì ngày tự mở lại.
+// Nếu không gọi được Apps Script thì giữ nguyên danh sách cũ, không xoá nhầm.
+async function refreshPaidBookings(env) {
+  if (!env.OTP_MAIL_URL || !env.OTP_MAIL_SECRET) return;
+  try {
+    const res = await fetch(env.OTP_MAIL_URL, {
+      method: "POST",
+      headers: { "content-type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ type: "confirmed", secret: env.OTP_MAIL_SECRET }),
+    });
+    const data = JSON.parse(await res.text());
+    if (!data || data.ok !== true || !Array.isArray(data.bookings)) {
+      console.error("[paid] phản hồi không hợp lệ", data && data.error);
+      return;
+    }
+    const list = data.bookings
+      .filter(
+        (b) =>
+          b && typeof b.ref === "string" && ISO_DATE_RE.test(b.start) && ISO_DATE_RE.test(b.end) && b.end > b.start
+      )
+      .map((b) => ({ ref: b.ref, start: b.start, end: b.end }));
+    await env.CALENDAR_KV.put("direct-bookings", JSON.stringify(list));
+  } catch (err) {
+    console.error("[paid] lỗi:", err.message);
+  }
+}
+
 async function sync(env) {
+  await refreshPaidBookings(env);
   const all = new Set();
   const results = await Promise.all([
     fetchIcs(env.AIRBNB_ICAL_URL, "airbnb"),
@@ -87,7 +117,7 @@ async function sync(env) {
   ]);
   results.flat().forEach((d) => all.add(d));
 
-  // Đặt phòng trực tiếp trên web cũng phải khoá ngày, không chỉ các kênh OTA.
+  // Đơn đặt trực tiếp đã thanh toán cũng khoá ngày, không chỉ các kênh OTA.
   const direct = await getDirectBookings(env);
   for (const b of direct) {
     let cur = b.start;
@@ -184,13 +214,10 @@ export default {
           headers: { ...corsHeaders(origin), "content-type": "application/json" },
         });
       }
-      const direct = await getDirectBookings(env);
-      if (!direct.some((b) => b.ref === ref)) {
-        direct.push({ ref, start, end, createdAt: new Date().toISOString() });
-        await env.CALENDAR_KV.put("direct-bookings", JSON.stringify(direct));
-      }
-      await sync(env);
-      return new Response(JSON.stringify({ ok: true }), {
+      // Đơn mới đặt chưa thanh toán thì KHÔNG khoá ngày. Chỉ ghi nhận hợp lệ
+      // để các bản web cũ gọi vào không bị lỗi; ngày chỉ khoá khi nhân sự xác
+      // nhận "Đã thanh toán" trong Google Sheet.
+      return new Response(JSON.stringify({ ok: true, locked: false }), {
         headers: { ...corsHeaders(origin), "content-type": "application/json" },
       });
     }

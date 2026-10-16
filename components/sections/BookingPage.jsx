@@ -453,13 +453,8 @@ export function BookingPageContent({ onExit }) {
       paymentMethod: method,
       total,
     });
-    // Ghi nhận đặt phòng trực tiếp vào Worker để khoá ngày trên web và xuất
-    // ra link iCal cho các kênh OTA khác (không chặn giao diện nếu lỗi).
-    fetch(WORKER_BASE + "/book", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ref, start: range.start, end: range.end }),
-    }).catch(() => {});
+    // Chưa khoá ngày: ngày chỉ bị khoá sau khi nhân sự xác nhận đã thanh toán
+    // trong Google Sheet (Worker tự đọc lại mỗi phút).
     go(3);
   };
 
