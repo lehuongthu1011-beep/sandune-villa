@@ -168,20 +168,35 @@ function toIcsDate(iso) {
 // "Import calendar" / "Sync calendars" của Airbnb/Agoda/Booking.com/Ctrip để
 // các kênh đó tự khoá ngày khi có khách đặt thẳng trên web.
 function buildIcs(bookings) {
-  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//SanDune Villa//Direct Bookings//VI", "CALSCALE:GREGORIAN"];
-  for (const b of bookings) {
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//SanDune Villa//Direct Bookings//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "X-WR-CALNAME:SanDune Villa",
+  ];
+  // Một số kênh (Agoda) từ chối lịch rỗng, nên luôn có ít nhất một sự kiện.
+  // Sự kiện mẫu nằm ở quá khứ xa nên không khoá ngày nào đang bán.
+  const events = bookings.length
+    ? bookings
+    : [{ ref: "SDV-PLACEHOLDER", start: "2020-01-01", end: "2020-01-02", createdAt: "2020-01-01" }];
+  for (const b of events) {
+    const stamp = toIcsDate((b.createdAt || b.start).slice(0, 10));
     lines.push(
       "BEGIN:VEVENT",
       `UID:${b.ref}@sandunevilla.vn`,
-      `DTSTAMP:${toIcsDate(b.createdAt || b.start)}T000000Z`,
+      `DTSTAMP:${stamp}T000000Z`,
       `DTSTART;VALUE=DATE:${toIcsDate(b.start)}`,
       `DTEND;VALUE=DATE:${toIcsDate(b.end)}`,
-      "SUMMARY:Đã đặt — SanDune Villa (web)",
+      "SUMMARY:Reserved",
+      "STATUS:CONFIRMED",
+      "TRANSP:OPAQUE",
       "END:VEVENT"
     );
   }
   lines.push("END:VCALENDAR");
-  return lines.join("\r\n");
+  return lines.join("\r\n") + "\r\n";
 }
 
 export default {
