@@ -5,6 +5,9 @@ import { Breadcrumbs, SectionHeading, RoomCard, BookingWidget, PriceSummary, Tab
 import { useLang } from "@/lib/lang-context";
 import { SV_ROOMS, SV_AMENITIES, pickLang } from "@/lib/ds-data";
 import { ui } from "@/lib/ui-strings";
+import { BASE_PRICE } from "@/lib/pricing";
+
+const vnd = (n) => n.toLocaleString("vi-VN") + "₫";
 
 export function RoomsPageContent() {
   const { t, lang } = useLang();
@@ -40,7 +43,7 @@ export function RoomsPageContent() {
         </div>
         <div className="sv-r-sticky" style={{ position: "sticky", top: 100 }}>
           <BookingWidget
-            price="15.000.000₫"
+            price={vnd(BASE_PRICE)}
             unit={pickLang({ unitVi: "/ đêm · nguyên căn", unitEn: "/ night · whole villa", unitKo: "/ 1박 · 빌라 전체", unitZh: "/ 晚 · 整栋别墅" }, "unit", lang)}
             checkIn="12 Th8"
             checkOut="16 Th8"
@@ -51,9 +54,9 @@ export function RoomsPageContent() {
           >
             <PriceSummary
               totalLabel={lang === "vi" ? "Tổng cộng" : lang === "ko" ? "총액" : lang === "zh" ? "总计" : "Total"}
-              total="60.000.000₫"
+              total={vnd(BASE_PRICE * 4)}
               rows={[
-                { label: "15.000.000₫ × 4", value: "60.000.000₫" },
+                { label: vnd(BASE_PRICE) + " × 4", value: vnd(BASE_PRICE * 4) },
                 {
                   label: lang === "vi" ? "Phí dọn dẹp" : lang === "ko" ? "청소비" : lang === "zh" ? "清洁费" : "Cleaning fee",
                   value: lang === "vi" ? "Miễn phí" : lang === "ko" ? "무료" : lang === "zh" ? "免费" : "Included",

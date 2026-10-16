@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Overline, Stat, Testimonial, Figure, Icon, Rating, SectionHeading, AmenityList } from "@/components/ds";
 import { useLang } from "@/lib/lang-context";
+import { ui } from "@/lib/ui-strings";
+import { HAS_SEASONS, LOWEST_PRICE } from "@/lib/pricing";
 import { SV_ASSETS, SV_AMENITIES, SV_REVIEWS, SV_SCORES, SV_RATE, SV_CONTACT, SV_SHOWCASE, pickLang } from "@/lib/ds-data";
 
 const wrap = { maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--gutter)" };
@@ -262,7 +264,7 @@ function CtaBand({ onBook }) {
       <div style={{ ...narrow, position: "relative", textAlign: "center" }}>
         <h2 className="sv-statement sv-statement--inverse">{t.ctaTitle}</h2>
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)", marginTop: "var(--space-8)" }}>
-          <span style={{ fontFamily: "var(--font-display)", fontSize: 34, color: "var(--text-inverse)" }}>{rate.amount}</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: 34, color: "var(--text-inverse)" }}>{(HAS_SEASONS ? ui("priceFrom", lang) + " " : "") + LOWEST_PRICE.toLocaleString("vi-VN") + "₫"}</span>
           <span style={{ fontFamily: "var(--font-sans)", fontSize: "var(--size-body-sm)", color: "var(--text-inverse-muted)" }}>{pickLang(rate, "unit", lang)}</span>
         </div>
         <p style={{ ...copy, color: "var(--text-inverse-muted)", marginTop: "var(--space-4)" }}>{pickLang(rate, "note", lang)}</p>

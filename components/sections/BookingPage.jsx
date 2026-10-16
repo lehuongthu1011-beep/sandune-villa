@@ -24,12 +24,12 @@ import {
 import { useLang } from "@/lib/lang-context";
 import { SV_ASSETS, SV_CONTACT, SV_BANK } from "@/lib/ds-data";
 import { sendLead } from "@/lib/notify";
+import { quote, seasonName } from "@/lib/pricing";
 import fallbackUnavailableDates from "@/content/unavailable-dates.json";
 
 const WORKER_BASE = "https://sandune-ota-sync.lehuongthu1011.workers.dev";
 const CALENDAR_API = WORKER_BASE + "/unavailable-dates";
 
-const RATE = 15000000;
 const money = (n) => n.toLocaleString("vi-VN") + "₫";
 const ADDONS = [];
 
@@ -332,8 +332,17 @@ const dateLabel = (range, b, lang) => {
   return formatIsoDate(range.start, lang) + " – " + formatIsoDate(range.end, lang);
 };
 
-function Summary({ b, lang, nights, guests, extras, total }) {
-  const rows = [{ label: b.priceUnit + b.nightsW(nights), value: money(RATE * nights) }];
+const priceRows = (groups, b, lang) =>
+  groups.map((g) => {
+    const name = seasonName(g.season, lang);
+    return {
+      label: money(g.price) + " × " + b.nightsW(g.nights) + (name ? " (" + name + ")" : ""),
+      value: money(g.price * g.nights),
+    };
+  });
+
+function Summary({ b, lang, nights, guests, extras, total, groups }) {
+  const rows = priceRows(groups, b, lang);
   extras.forEach((x) => rows.push({ label: (x[lang] || x.vi).split(" — ")[0], value: money(x.total) }));
   rows.push({ label: b.clean, value: b.cleanFree, info: b.cleanInfo });
   rows.push({ label: b.tax, value: b.taxInc });
@@ -396,7 +405,8 @@ export function BookingPageContent({ onExit }) {
   const nights = range.end && range.start ? nightsBetween(range.start, range.end) : 1;
   const guests = g.adults + g.kids + g.infants;
   const extras = ADDONS.filter((x) => picked[x.id]).map((x) => ({ ...x, total: x.price }));
-  const total = RATE * nights + extras.reduce((s, x) => s + x.total, 0);
+  const priced = quote(range.start, nights);
+  const total = priced.total + extras.reduce((s, x) => s + x.total, 0);
   const b = { ...b0, dateText: dateLabel(range, b0, lang) };
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const go = (n) => {
@@ -406,7 +416,7 @@ export function BookingPageContent({ onExit }) {
   };
   const refYYMM = range.start ? range.start.slice(2, 4) + range.start.slice(5, 7) : "2608";
   const ref = "SDV-" + refYYMM + "-" + String(4000 + nights * 37 + guests * 11).slice(0, 4);
-  const sum = <Summary b={b} lang={lang} nights={nights} guests={guests} extras={extras} total={total} />;
+  const sum = <Summary b={b} lang={lang} nights={nights} guests={guests} extras={extras} total={total} groups={priced.groups} />;
   const twoCol = { display: "grid", gridTemplateColumns: "minmax(0,1fr) 320px", gap: "var(--space-9)", alignItems: "start" };
   const h2 = { fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "var(--size-display-sm)", margin: 0 };
   const note = { fontFamily: "var(--font-sans)", fontSize: "var(--size-body-sm)", color: "var(--text-brand)" };
@@ -638,7 +648,7 @@ export function BookingPageContent({ onExit }) {
               <Divider style={{ margin: "18px 0" }} />
               <PriceSummary
                 total={money(total)}
-                rows={[{ label: money(RATE) + " × " + b.nightsW(nights), value: money(RATE * nights) }].concat(
+                rows={priceRows(priced.groups, b, lang).concat(
                   extras.map((x) => ({ label: (x[lang] || x.vi).split(" — ")[0], value: money(x.total) }))
                 )}
               />
