@@ -108,35 +108,48 @@ collections:
                 fields: *copy_fields
 
   - name: "pricing"
-    label: "Giá villa theo mùa"
+    label: "Giá villa theo ngày"
     files:
       - name: "pricing"
         label: "Giá mỗi đêm"
         file: "content/pricing.json"
         fields:
-          - label: "Giá thấp điểm / giá chuẩn mỗi đêm (VNĐ, chỉ gõ số, vd 15000000)"
+          - label: "Giá chuẩn mỗi đêm (VNĐ, chỉ gõ số, vd 15000000). Đêm nào không có mức giá riêng bên dưới sẽ tính giá này"
             name: "base"
             widget: "number"
             value_type: "int"
             min: 0
-          - label: "Mùa có giá khác (cao điểm, lễ, Tết...). Đêm nào không thuộc mùa nào sẽ tính giá chuẩn ở trên"
+          - label: "Mức giá riêng (cho một ngày, một tuần, một tháng, cuối tuần, lễ, Tết...). Mức nằm trên cùng được ưu tiên khi hai mức trùng ngày"
             name: "seasons"
             widget: "list"
             required: false
             summary: "{{nameVi}}: {{from}} đến {{to}}, {{price}}"
             fields:
-              - { label: "Tên mùa (Tiếng Việt, vd Cao điểm hè)", name: "nameVi", widget: "string" }
-              - { label: "Tên mùa (English, vd Summer peak)", name: "nameEn", widget: "string", required: false }
-              - { label: "Tên mùa (한국어, không bắt buộc)", name: "nameKo", widget: "string", required: false }
-              - { label: "Tên mùa (中文, không bắt buộc)", name: "nameZh", widget: "string", required: false }
-              - { label: "Từ đêm ngày", name: "from", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-              - { label: "Đến hết đêm ngày (tính cả ngày này)", name: "to", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-              - label: "Giá mỗi đêm trong mùa này (VNĐ, chỉ gõ số)"
+              - { label: "Tên gọi để nhớ (Tiếng Việt, vd Cuối tuần tháng 12)", name: "nameVi", widget: "string" }
+              - { label: "Tên (English, không bắt buộc, hiện cho khách nước ngoài)", name: "nameEn", widget: "string", required: false }
+              - { label: "Tên (한국어, không bắt buộc)", name: "nameKo", widget: "string", required: false }
+              - { label: "Tên (中文, không bắt buộc)", name: "nameZh", widget: "string", required: false }
+              - { label: "Từ đêm ngày (một ngày thì chọn cùng ngày ở ô Đến). Bỏ trống cả hai ô ngày để áp dụng mọi ngày trong năm", name: "from", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+              - { label: "Đến hết đêm ngày (tính cả ngày này)", name: "to", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+              - label: "Chỉ áp dụng cho các thứ (bỏ trống là mọi ngày trong khoảng trên, chọn Thứ Sáu và Thứ Bảy để tính giá cuối tuần)"
+                name: "weekdays"
+                widget: "select"
+                multiple: true
+                required: false
+                options:
+                  - { label: "Thứ Hai", value: "mon" }
+                  - { label: "Thứ Ba", value: "tue" }
+                  - { label: "Thứ Tư", value: "wed" }
+                  - { label: "Thứ Năm", value: "thu" }
+                  - { label: "Thứ Sáu", value: "fri" }
+                  - { label: "Thứ Bảy", value: "sat" }
+                  - { label: "Chủ Nhật", value: "sun" }
+              - label: "Giá mỗi đêm của mức này (VNĐ, chỉ gõ số)"
                 name: "price"
                 widget: "number"
                 value_type: "int"
                 min: 0
-              - label: "Lặp lại mỗi năm (bật cho mùa cố định như hè hay 30/4, tắt cho Tết âm lịch vì ngày đổi mỗi năm)"
+              - label: "Lặp lại mỗi năm (bật cho ngày cố định theo dương lịch như cả tháng 7 hay 30/4, tắt cho Tết âm lịch vì ngày đổi mỗi năm)"
                 name: "yearly"
                 widget: "boolean"
                 default: false
