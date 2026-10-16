@@ -4,23 +4,24 @@
     "email": "trinhgia.jsc.vn@gmail.com",
     "addressVi": "43 Mỹ Khê 1, Sơn Trà, Đà Nẵng",
     "addressEn": "My Khe 1, Son Tra, Da Nang",
+    "addressKo": "다낭 선짜 미케1 43번지",
+    "addressZh": "岘港山茶美溪1号43号",
     "host": "Kuan"
   },
   "rate": {
     "amount": "15.000.000₫",
     "unitVi": "/ đêm · nguyên căn",
     "unitEn": "/ night · whole villa",
+    "unitKo": "/ 1박 · 빌라 전체",
+    "unitZh": "/ 晚 · 整栋别墅",
     "noteVi": "Trải nghiệm không gian riêng tư sang trọng tại bãi biển Đà Nẵng",
-    "noteEn": "A private, high-end stay on the Da Nang beachfront"
+    "noteEn": "A private, high-end stay on the Da Nang beachfront",
+    "noteKo": "다낭 해변에서 누리는 프라이빗하고 고급스러운 휴식",
+    "noteZh": "在岘港海滨享受私密高端的住宿体验"
   },
   "copy": {
     "vi": {
-      "nav": {
-        "villa": "Biệt thự",
-        "rooms": "Phòng",
-        "gallery": "Thư viện",
-        "contact": "Liên hệ"
-      },
+      "nav": { "villa": "Biệt thự", "rooms": "Phòng", "gallery": "Thư viện", "contact": "Liên hệ" },
       "cta": "Đặt phòng",
       "heroOverline": "Mỹ Khê · Đà Nẵng",
       "heroTitle": "Nguyên căn villa\nbên bãi Mỹ Khê",
@@ -32,22 +33,10 @@
       "searchGuests": "Khách",
       "searchGo": "Tìm",
       "stats": [
-        {
-          "value": "400",
-          "label": "m² sàn"
-        },
-        {
-          "value": "5",
-          "label": "phòng ngủ"
-        },
-        {
-          "value": "6",
-          "label": "giường king"
-        },
-        {
-          "value": "10",
-          "label": "phút đi bộ ra biển"
-        }
+        { "value": "400", "label": "m² sàn" },
+        { "value": "5", "label": "phòng ngủ" },
+        { "value": "6", "label": "giường king" },
+        { "value": "10", "label": "phút đi bộ ra biển" }
       ],
       "introOverline": "Về biệt thự",
       "introTitle": "Một căn nhà, không phải một khách sạn",
@@ -68,15 +57,26 @@
       "ctaBtn": "Đặt phòng ngay",
       "ctaAlt": "Nhắn Zalo",
       "perNight": "/ đêm",
-      "detail": "Chi tiết"
+      "detail": "Chi tiết",
+      "scrollLabel": "Cuộn xuống",
+      "statement": "Tận hưởng kỳ nghỉ theo cách riêng tại Sandune Villa Danang",
+      "introHtml": "Nguyên căn ba tầng, năm phòng ngủ, hồ bơi nước mặn — nguyên căn, <em>đảm bảo trải nghiệm private thượng lưu</em>",
+      "aboutBtn": "Về biệt thự",
+      "discoverBtn": "Khám phá",
+      "showcaseHtml": "Năm phòng ngủ. Biệt thự nổi bật với phòng khách ấm cúng, nhà bếp đầy đủ tiện nghi và <em>không gian trải nghiệm ngoài trời rộng rãi</em>",
+      "bookBandHtml": "Đặt ngay hôm nay để <em>nhận ưu đãi.</em>",
+      "reviewsHeading": "Khách đã ở nói gì",
+      "placeOverline": "Vị trí",
+      "placeHeadingHtml": "Toạ lạc tại con phố yên tĩnh,<br><em>cách biển 600m.</em>",
+      "placeNear": [
+        { "icon": "footprints", "name": "Bãi biển Mỹ Khê", "dist": "10 phút đi bộ" },
+        { "icon": "shopping-bag", "name": "Vincom Plaza Đà Nẵng", "dist": "5 phút đi xe" },
+        { "icon": "utensils-crossed", "name": "Nhà hàng hải sản", "dist": "3 phút đi xe" },
+        { "icon": "plane", "name": "Sân bay Đà Nẵng", "dist": "20 phút đi xe" }
+      ]
     },
     "en": {
-      "nav": {
-        "villa": "The villa",
-        "rooms": "Rooms",
-        "gallery": "Gallery",
-        "contact": "Contact"
-      },
+      "nav": { "villa": "The villa", "rooms": "Rooms", "gallery": "Gallery", "contact": "Contact" },
       "cta": "Book now",
       "heroOverline": "My Khe · Da Nang",
       "heroTitle": "The whole villa,\nsteps from My Khe",
@@ -88,22 +88,10 @@
       "searchGuests": "Guests",
       "searchGo": "Search",
       "stats": [
-        {
-          "value": "400",
-          "label": "m² of villa"
-        },
-        {
-          "value": "5",
-          "label": "bedrooms"
-        },
-        {
-          "value": "6",
-          "label": "king beds"
-        },
-        {
-          "value": "10",
-          "label": "min walk to beach"
-        }
+        { "value": "400", "label": "m² of villa" },
+        { "value": "5", "label": "bedrooms" },
+        { "value": "6", "label": "king beds" },
+        { "value": "10", "label": "min walk to beach" }
       ],
       "introOverline": "About the villa",
       "introTitle": "A house, not a hotel",
@@ -124,7 +112,133 @@
       "ctaBtn": "Book your stay",
       "ctaAlt": "Message on Zalo",
       "perNight": "/ night",
-      "detail": "Details"
+      "detail": "Details",
+      "scrollLabel": "Scroll",
+      "statement": "Enjoy your holiday your own way at Sandune Villa Danang",
+      "introHtml": "Three floors, five bedrooms and a salt-water pool — the whole house, <em>for a genuinely private stay</em>",
+      "aboutBtn": "About the villa",
+      "discoverBtn": "Discover",
+      "showcaseHtml": "Five bedrooms, a cosy living room, a fully equipped kitchen and <em>a spacious outdoor area</em>",
+      "bookBandHtml": "Book today and <em>take the offer.</em>",
+      "reviewsHeading": "What our guests say",
+      "placeOverline": "The location",
+      "placeHeadingHtml": "On a quiet street,<br><em>600 m from the sea.</em>",
+      "placeNear": [
+        { "icon": "footprints", "name": "My Khe beach", "dist": "10 min walk" },
+        { "icon": "shopping-bag", "name": "Vincom Plaza Da Nang", "dist": "5 min drive" },
+        { "icon": "utensils-crossed", "name": "Seafood restaurants", "dist": "3 min drive" },
+        { "icon": "plane", "name": "Da Nang airport", "dist": "20 min drive" }
+      ]
+    },
+    "ko": {
+      "nav": { "villa": "빌라", "rooms": "객실", "gallery": "갤러리", "contact": "문의" },
+      "cta": "예약하기",
+      "heroOverline": "미케 · 다낭",
+      "heroTitle": "미케 해변 인근의\n독채 빌라",
+      "heroLede": "400㎡ 규모의 프라이빗 빌라: 침실 5개, 해수 수영장, 삼나무 사우나, 바비큐 테라스를 갖췄습니다. 통째로 대여하며, 1박 15,000,000₫입니다.",
+      "heroPrimary": "예약 가능 여부 확인",
+      "heroSecondary": "빌라 둘러보기",
+      "searchIn": "체크인",
+      "searchOut": "체크아웃",
+      "searchGuests": "인원",
+      "searchGo": "검색",
+      "stats": [
+        { "value": "400", "label": "㎡ 규모" },
+        { "value": "5", "label": "개의 침실" },
+        { "value": "6", "label": "개의 킹베드" },
+        { "value": "10", "label": "분 거리의 해변" }
+      ],
+      "introOverline": "빌라 소개",
+      "introTitle": "호텔이 아닌, 한 채의 집",
+      "introBody": "산둔 빌라는 편안함과 프라이버시, 그리고 평화롭고 고급스러운 해변 휴양을 원하는 가족, 커플, 소규모 그룹에게 완벽한 선택입니다. 완벽한 휴식을 위한 모든 것을 갖추고 있습니다.",
+      "introBody2": "사우나 후 수영을 즐기고, 저녁에는 테라스에서 바비큐를. 용교(드래곤 브릿지)까지 15분, 공항까지 20분 거리입니다.",
+      "roomsOverline": "객실 안내",
+      "roomsTitle": "침실 5개,\n킹베드 6개",
+      "roomsLede": "모든 객실에는 에어컨과 테라코타 타일로 마감된 전용 욕실, 아침 햇살이 들어오는 높은 창문이 있습니다. 모든 객실에 돌 욕조가 설치되어 있습니다.",
+      "roomsAll": "모든 객실 보기",
+      "amenOverline": "편의시설",
+      "amenTitle": "필요한 모든 것이 이미 준비되어 있습니다",
+      "galOverline": "갤러리",
+      "galTitle": "산둔 빌라의 공간들",
+      "galMore": "+ 사진 70장",
+      "quoteOverline": "게스트 후기",
+      "ctaTitle": "오늘 바로 예약하세요",
+      "ctaLede": "원하시는 날짜를 알려주세요 — 호스트가 당일 안에 답변드립니다.",
+      "ctaBtn": "지금 예약하기",
+      "ctaAlt": "Zalo로 문의하기",
+      "perNight": "/ 1박",
+      "detail": "자세히 보기",
+      "scrollLabel": "스크롤",
+      "statement": "산둔 빌라 다낭에서, 나만의 방식으로 휴가를 즐기세요",
+      "introHtml": "3개 층, 5개의 침실과 해수 수영장을 갖춘 — 한 채 전체를 빌려, <em>진정한 프라이빗 스테이를 경험하세요</em>",
+      "aboutBtn": "빌라 소개",
+      "discoverBtn": "더 보기",
+      "showcaseHtml": "침실 5개. 아늑한 거실과 풀옵션 주방을 갖춘 빌라, 그리고 <em>탁 트인 야외 공간</em>까지",
+      "bookBandHtml": "지금 예약하고 <em>특별 혜택을 받아보세요.</em>",
+      "reviewsHeading": "게스트들의 후기",
+      "placeOverline": "위치",
+      "placeHeadingHtml": "조용한 골목에 자리해,<br><em>바다까지 600m.</em>",
+      "placeNear": [
+        { "icon": "footprints", "name": "미케 해변", "dist": "도보 10분" },
+        { "icon": "shopping-bag", "name": "다낭 빈콤 플라자", "dist": "차량 5분" },
+        { "icon": "utensils-crossed", "name": "해산물 레스토랑", "dist": "차량 3분" },
+        { "icon": "plane", "name": "다낭 국제공항", "dist": "차량 20분" }
+      ]
+    },
+    "zh": {
+      "nav": { "villa": "别墅", "rooms": "客房", "gallery": "相册", "contact": "联系我们" },
+      "cta": "立即预订",
+      "heroOverline": "美溪 · 岘港",
+      "heroTitle": "整栋别墅\n紧邻美溪海滩",
+      "heroLede": "私密400平米别墅：五间卧室、盐水泳池、雪松桑拿房与户外烧烤露台。整栋出租，每晚15,000,000越南盾。",
+      "heroPrimary": "查询空房",
+      "heroSecondary": "了解别墅",
+      "searchIn": "入住",
+      "searchOut": "退房",
+      "searchGuests": "人数",
+      "searchGo": "搜索",
+      "stats": [
+        { "value": "400", "label": "平方米" },
+        { "value": "5", "label": "间卧室" },
+        { "value": "6", "label": "张特大床" },
+        { "value": "10", "label": "分钟步行至海滩" }
+      ],
+      "introOverline": "关于别墅",
+      "introTitle": "这是一个家，而非酒店",
+      "introBody": "SanDune别墅是家庭、情侣及小团体的理想之选，为追求舒适、私密与宁静奢华海滨假期的旅客，提供一次完整假期所需的一切设施。",
+      "introBody2": "先蒸桑拿，再畅游泳池，入夜后在露台上享受烧烤。距龙桥仅十五分钟，距机场二十分钟车程。",
+      "roomsOverline": "客房",
+      "roomsTitle": "五间卧室，\n六张特大床",
+      "roomsLede": "每间客房均配备空调、铺贴赤陶瓷砖的独立卫浴，以及迎接晨光的高窗。所有客房均设有嵌入式石浴缸。",
+      "roomsAll": "查看全部客房",
+      "amenOverline": "设施",
+      "amenTitle": "一切所需，应有尽有",
+      "galOverline": "相册",
+      "galTitle": "SanDune别墅的空间",
+      "galMore": "+ 70张照片",
+      "quoteOverline": "客人评价",
+      "ctaTitle": "即刻预订",
+      "ctaLede": "告诉我们您心仪的日期——房东当天即可回复。",
+      "ctaBtn": "预订您的行程",
+      "ctaAlt": "Zalo联系",
+      "perNight": "/ 晚",
+      "detail": "查看详情",
+      "scrollLabel": "向下滑动",
+      "statement": "在岘港SanDune别墅，以你自己的方式享受假期",
+      "introHtml": "三层楼、五间卧室与一座盐水泳池——整栋别墅，<em>只为真正私密的住宿体验</em>",
+      "aboutBtn": "关于别墅",
+      "discoverBtn": "探索",
+      "showcaseHtml": "五间卧室。别墅拥有温馨的客厅、设备齐全的厨房，以及<em>宽敞的户外空间</em>",
+      "bookBandHtml": "即刻预订，<em>尊享优惠。</em>",
+      "reviewsHeading": "客人怎么说",
+      "placeOverline": "位置",
+      "placeHeadingHtml": "坐落于静谧街道，<br><em>距海滩仅600米。</em>",
+      "placeNear": [
+        { "icon": "footprints", "name": "美溪海滩", "dist": "步行10分钟" },
+        { "icon": "shopping-bag", "name": "岘港Vincom广场", "dist": "车程5分钟" },
+        { "icon": "utensils-crossed", "name": "海鲜餐厅", "dist": "车程3分钟" },
+        { "icon": "plane", "name": "岘港国际机场", "dist": "车程20分钟" }
+      ]
     }
   }
 }

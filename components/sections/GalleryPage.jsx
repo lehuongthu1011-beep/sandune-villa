@@ -3,37 +3,20 @@ import { useState } from "react";
 import { Breadcrumbs, SectionHeading, Tabs, Figure, IconButton } from "@/components/ds";
 import { useLang } from "@/lib/lang-context";
 import { SV_GALLERY } from "@/lib/ds-data";
+import { ui } from "@/lib/ui-strings";
 
 export function GalleryPageContent() {
   const { t, lang } = useLang();
   const [tab, setTab] = useState("all");
   const [open, setOpen] = useState(null);
   const shots = SV_GALLERY;
+  const home = ui("home", lang);
 
   return (
     <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "40px var(--gutter) var(--section-y)" }}>
-      <Breadcrumbs items={[{ label: lang === "vi" ? "Trang chủ" : "Home", href: "/" }, { label: t.nav.gallery }]} />
+      <Breadcrumbs items={[{ label: home, href: "/" }, { label: t.nav.gallery }]} />
       <SectionHeading style={{ marginTop: 20 }} overline={t.galOverline} title={t.galTitle} />
-      <Tabs
-        value={tab}
-        onChange={setTab}
-        style={{ marginBottom: "var(--space-8)" }}
-        items={
-          lang === "vi"
-            ? [
-                { id: "all", label: "Tất cả" },
-                { id: "pool", label: "Hồ bơi" },
-                { id: "rooms", label: "Phòng ngủ" },
-                { id: "outdoor", label: "Ngoài trời" },
-              ]
-            : [
-                { id: "all", label: "All" },
-                { id: "pool", label: "Pool" },
-                { id: "rooms", label: "Bedrooms" },
-                { id: "outdoor", label: "Outdoors" },
-              ]
-        }
-      />
+      <Tabs value={tab} onChange={setTab} style={{ marginBottom: "var(--space-8)" }} items={ui("galleryTabs", lang)} />
       <div className="sv-r-masonry" style={{ columnCount: 3, columnGap: "var(--grid-gap)" }}>
         {shots.map((s, i) => (
           <div key={s.src} style={{ breakInside: "avoid", marginBottom: "var(--grid-gap)", cursor: "pointer" }} onClick={() => setOpen(s.src)}>

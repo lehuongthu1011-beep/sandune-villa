@@ -2,6 +2,18 @@
 import React from "react";
 
 const DS = {};
+const LOGO_BYLINE = {
+  vi: 'Đà Nẵng · by KUANS',
+  en: 'Da Nang · by KUANS',
+  ko: '다낭 · by KUANS',
+  zh: '岘港 · by KUANS'
+};
+const MENU_LABEL = {
+  vi: { open: 'Mở menu', close: 'Đóng menu' },
+  en: { open: 'Open menu', close: 'Close menu' },
+  ko: { open: '메뉴 열기', close: '메뉴 닫기' },
+  zh: { open: '打开菜单', close: '关闭菜单' }
+};
 
 // components/core/Card.jsx
 (() => {
@@ -197,9 +209,11 @@ function Logo({
   height,
   inverse = false,
   propertyName = 'SanDune Villa',
-  byline = 'Đà Nẵng · by KUANS',
+  byline,
+  lang = 'vi',
   style = {}
 }) {
+  if (byline == null) byline = LOGO_BYLINE[lang] || LOGO_BYLINE.vi;
   const b = base();
   const knock = inverse ? {
     filter: 'brightness(0) invert(1)'
@@ -614,8 +628,24 @@ Object.assign(DS, { Checkbox });
 
 // components/forms/DateRangePicker.jsx
 (() => {
-const DOW = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-const MONTHS = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+const DOW_BY_LANG = {
+  vi: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+  en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  ko: ['월', '화', '수', '목', '금', '토', '일'],
+  zh: ['一', '二', '三', '四', '五', '六', '日']
+};
+const MONTHS_BY_LANG = {
+  vi: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  ko: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+  zh: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+};
+const CAL_NAV_LABEL = {
+  vi: { prev: 'Tháng trước', next: 'Tháng sau' },
+  en: { prev: 'Previous month', next: 'Next month' },
+  ko: { prev: '이전 달', next: '다음 달' },
+  zh: { prev: '上个月', next: '下个月' }
+};
 /** Two-tap check-in / check-out calendar. */
 function DateRangePicker({
   year = 2026,
@@ -624,9 +654,13 @@ function DateRangePicker({
   end = null,
   onChange,
   unavailable = [],
+  lang = 'vi',
   className = '',
   style = {}
 }) {
+  const DOW = DOW_BY_LANG[lang] || DOW_BY_LANG.vi;
+  const MONTHS = MONTHS_BY_LANG[lang] || MONTHS_BY_LANG.vi;
+  const navLabel = CAL_NAV_LABEL[lang] || CAL_NAV_LABEL.vi;
   const [m, setM] = React.useState(month);
   const [y, setY] = React.useState(year);
   const first = new Date(y, m, 1);
@@ -655,7 +689,7 @@ function DateRangePicker({
     className: "sv-cal__head"
   }, /*#__PURE__*/React.createElement("button", {
     className: "sv-iconbtn sv-iconbtn--sm",
-    "aria-label": "Th\xE1ng tr\u01B0\u1EDBc",
+    "aria-label": navLabel.prev,
     onClick: () => {
       if (m === 0) {
         setM(11);
@@ -669,7 +703,7 @@ function DateRangePicker({
     className: "sv-cal__month"
   }, MONTHS[m], " ", y), /*#__PURE__*/React.createElement("button", {
     className: "sv-iconbtn sv-iconbtn--sm",
-    "aria-label": "Th\xE1ng sau",
+    "aria-label": navLabel.next,
     onClick: () => {
       if (m === 11) {
         setM(0);
@@ -1012,6 +1046,7 @@ function SiteFooter({
   email = 'trinhgia.jsc.vn@gmail.com',
   socials = ['instagram', 'facebook'],
   legal = '© 2026 SanDune Villa Danang by KUANS',
+  lang = 'vi',
   className = '',
   style = {}
 }) {
@@ -1025,7 +1060,8 @@ function SiteFooter({
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(DS.Logo, {
     variant: "lockup",
     height: 34,
-    inverse: true
+    inverse: true,
+    lang: lang
   }), /*#__PURE__*/React.createElement("p", {
     style: {
       marginTop: 'var(--space-5)',
@@ -1065,7 +1101,7 @@ function SiteFooter({
     href: `mailto:${email}`
   }, email))), /*#__PURE__*/React.createElement("div", {
     className: "sv-footer__base"
-  }, /*#__PURE__*/React.createElement("span", null, legal), /*#__PURE__*/React.createElement("span", null, "M\u1EF9 Kh\xEA \xB7 \u0110\xE0 N\u1EB5ng"))));
+  }, /*#__PURE__*/React.createElement("span", null, legal), /*#__PURE__*/React.createElement("span", null, (LOGO_BYLINE[lang] || LOGO_BYLINE.vi).split(' \u00B7 ')[0]))));
 }
 Object.assign(DS, { SiteFooter });
 })();
@@ -1078,7 +1114,7 @@ function SiteHeader({
   active,
   onNavigate,
   variant = 'solid',
-  lang = 'VI',
+  lang = 'vi',
   langs,
   onLangChange,
   ctaLabel = 'Đặt phòng',
@@ -1099,10 +1135,11 @@ function SiteHeader({
   }, /*#__PURE__*/React.createElement(DS.Logo, {
     variant: "lockup",
     height: 32,
-    inverse: inverse && !open
+    inverse: inverse && !open,
+    lang: lang
   }), /*#__PURE__*/React.createElement("button", {
     type: "button",
-    "aria-label": open ? 'Đóng menu' : 'Mở menu',
+    "aria-label": open ? (MENU_LABEL[lang] || MENU_LABEL.vi).close : (MENU_LABEL[lang] || MENU_LABEL.vi).open,
     "aria-expanded": open,
     onClick: () => setOpen(v => !v),
     className: ['sv-header__burger', inverse && !open && 'sv-header__burger--inverse'].filter(Boolean).join(' ')

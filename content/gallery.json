@@ -1,64 +1,16 @@
 {
   "items": [
-    {
-      "src": "photo-pool-hammocks.png",
-      "vi": "Hồ bơi nước mặn",
-      "en": "The salt-water pool"
-    },
-    {
-      "src": "photo-living.png",
-      "vi": "Phòng khách mở ra hồ bơi",
-      "en": "Living room opening to the pool"
-    },
-    {
-      "src": "photo-dining.png",
-      "vi": "Không gian bàn ăn ấm cúng",
-      "en": "The dining table"
-    },
-    {
-      "src": "photo-bed-loft-tub.png",
-      "vi": "Phòng Duplex",
-      "en": "The Duplex room"
-    },
-    {
-      "src": "photo-sauna.png",
-      "vi": "Phòng xông hơi",
-      "en": "The sauna"
-    },
-    {
-      "src": "photo-bbq-terrace.png",
-      "vi": "Khu vực BBQ ngoài trời",
-      "en": "The outdoor BBQ area"
-    },
-    {
-      "src": "photo-kitchen.png",
-      "vi": "Không gian nấu nướng đầy đủ tiện nghi",
-      "en": "A fully equipped kitchen"
-    },
-    {
-      "src": "photo-pool-waterfall.png",
-      "vi": "Thác nước trong hồ bơi",
-      "en": "The pool waterfall"
-    },
-    {
-      "src": "photo-bathtub.png",
-      "vi": "Bồn tắm đá tự nhiên",
-      "en": "A natural stone soaking tub"
-    },
-    {
-      "src": "photo-exterior-dusk.png",
-      "vi": "Biệt thự lúc hoàng hôn",
-      "en": "The villa at dusk"
-    },
-    {
-      "src": "photo-bed-garden.png",
-      "vi": "Phòng The Garden View",
-      "en": "The Garden View room"
-    },
-    {
-      "src": "photo-balcony.png",
-      "vi": "Ban công riêng",
-      "en": "A private balcony"
-    }
+    { "src": "photo-pool-hammocks.png", "vi": "Hồ bơi nước mặn", "en": "The salt-water pool", "ko": "해수 수영장", "zh": "盐水泳池" },
+    { "src": "photo-living.png", "vi": "Phòng khách mở ra hồ bơi", "en": "Living room opening to the pool", "ko": "수영장과 연결된 거실", "zh": "直通泳池的客厅" },
+    { "src": "photo-dining.png", "vi": "Không gian bàn ăn ấm cúng", "en": "The dining table", "ko": "아늑한 다이닝 공간", "zh": "温馨的用餐空间" },
+    { "src": "photo-bed-loft-tub.png", "vi": "Phòng Duplex", "en": "The Duplex room", "ko": "복층룸", "zh": "复式房" },
+    { "src": "photo-sauna.png", "vi": "Phòng xông hơi", "en": "The sauna", "ko": "사우나룸", "zh": "桑拿房" },
+    { "src": "photo-bbq-terrace.png", "vi": "Khu vực BBQ ngoài trời", "en": "The outdoor BBQ area", "ko": "야외 바비큐 공간", "zh": "户外烧烤区" },
+    { "src": "photo-kitchen.png", "vi": "Không gian nấu nướng đầy đủ tiện nghi", "en": "A fully equipped kitchen", "ko": "풀옵션 주방 공간", "zh": "设备齐全的厨房空间" },
+    { "src": "photo-pool-waterfall.png", "vi": "Thác nước trong hồ bơi", "en": "The pool waterfall", "ko": "수영장 폭포", "zh": "泳池瀑布" },
+    { "src": "photo-bathtub.png", "vi": "Bồn tắm đá tự nhiên", "en": "A natural stone soaking tub", "ko": "천연 돌 욕조", "zh": "天然石浴缸" },
+    { "src": "photo-exterior-dusk.png", "vi": "Biệt thự lúc hoàng hôn", "en": "The villa at dusk", "ko": "황혼녘의 빌라", "zh": "黄昏中的别墅" },
+    { "src": "photo-bed-garden.png", "vi": "Phòng The Garden View", "en": "The Garden View room", "ko": "가든 뷰 룸", "zh": "花园景观房" },
+    { "src": "photo-balcony.png", "vi": "Ban công riêng", "en": "A private balcony", "ko": "전용 발코니", "zh": "私人阳台" }
   ]
 }

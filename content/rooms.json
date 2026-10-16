@@ -5,24 +5,16 @@
       "image": "photo-bed-loft-tub.png",
       "vi": "Phòng Gác Lửng",
       "en": "Loft Suite",
+      "ko": "로프트 스위트",
+      "zh": "阁楼套房",
       "flagVi": "Duplex",
       "flagEn": "Duplex",
+      "flagKo": "복층",
+      "flagZh": "复式",
       "meta": [
-        {
-          "icon": "bed-double",
-          "vi": "2 giường king",
-          "en": "2 king beds"
-        },
-        {
-          "icon": "users",
-          "vi": "4 khách",
-          "en": "4 guests"
-        },
-        {
-          "icon": "bath",
-          "vi": "Bồn tắm đá",
-          "en": "Stone bathtub"
-        }
+        { "icon": "bed-double", "vi": "2 giường king", "en": "2 king beds", "ko": "킹사이즈 침대 2개", "zh": "2张特大床" },
+        { "icon": "users", "vi": "4 khách", "en": "4 guests", "ko": "최대 4인", "zh": "4位客人" },
+        { "icon": "bath", "vi": "Bồn tắm đá", "en": "Stone bathtub", "ko": "돌 욕조", "zh": "石浴缸" }
       ]
     },
     {
@@ -30,24 +22,16 @@
       "image": "photo-bed-garden.png",
       "vi": "Phòng Vườn",
       "en": "Garden Room",
+      "ko": "가든 룸",
+      "zh": "花园房",
       "flagVi": "The Garden View",
       "flagEn": "The Garden View",
+      "flagKo": "가든 뷰",
+      "flagZh": "花园景观",
       "meta": [
-        {
-          "icon": "bed-double",
-          "vi": "1 giường king",
-          "en": "1 king bed"
-        },
-        {
-          "icon": "users",
-          "vi": "2 khách",
-          "en": "2 guests"
-        },
-        {
-          "icon": "tree-palm",
-          "vi": "Hướng vườn",
-          "en": "Garden view"
-        }
+        { "icon": "bed-double", "vi": "1 giường king", "en": "1 king bed", "ko": "킹사이즈 침대 1개", "zh": "1张特大床" },
+        { "icon": "users", "vi": "2 khách", "en": "2 guests", "ko": "최대 2인", "zh": "2位客人" },
+        { "icon": "tree-palm", "vi": "Hướng vườn", "en": "Garden view", "ko": "정원 전망", "zh": "花园景观" }
       ]
     },
     {
@@ -55,24 +39,16 @@
       "image": "photo-bed-tub.png",
       "vi": "Phòng Bồn Tắm",
       "en": "Soaking Suite",
+      "ko": "바스 스위트",
+      "zh": "浴缸套房",
       "flagVi": "Pool View",
       "flagEn": "Pool View",
+      "flagKo": "풀 뷰",
+      "flagZh": "泳池景观",
       "meta": [
-        {
-          "icon": "bed-double",
-          "vi": "1 giường king",
-          "en": "1 king bed"
-        },
-        {
-          "icon": "users",
-          "vi": "2 khách",
-          "en": "2 guests"
-        },
-        {
-          "icon": "bath",
-          "vi": "Bồn tắm đá",
-          "en": "Stone bathtub"
-        }
+        { "icon": "bed-double", "vi": "1 giường king", "en": "1 king bed", "ko": "킹사이즈 침대 1개", "zh": "1张特大床" },
+        { "icon": "users", "vi": "2 khách", "en": "2 guests", "ko": "최대 2인", "zh": "2位客人" },
+        { "icon": "bath", "vi": "Bồn tắm đá", "en": "Stone bathtub", "ko": "돌 욕조", "zh": "石浴缸" }
       ]
     },
     {
@@ -80,24 +56,16 @@
       "image": "photo-bed-tub.png",
       "vi": "Phòng Đôi Nắng Sớm",
       "en": "Morning Twin",
+      "ko": "모닝 트윈룸",
+      "zh": "晨光双人房",
       "flagVi": "Deluxe",
       "flagEn": "Deluxe",
+      "flagKo": "디럭스",
+      "flagZh": "豪华",
       "meta": [
-        {
-          "icon": "bed-double",
-          "vi": "1 giường king",
-          "en": "1 king bed"
-        },
-        {
-          "icon": "users",
-          "vi": "2 khách",
-          "en": "2 guests"
-        },
-        {
-          "icon": "sun",
-          "vi": "Nắng hướng đông",
-          "en": "East facing"
-        }
+        { "icon": "bed-double", "vi": "1 giường king", "en": "1 king bed", "ko": "킹사이즈 침대 1개", "zh": "1张特大床" },
+        { "icon": "users", "vi": "2 khách", "en": "2 guests", "ko": "최대 2인", "zh": "2位客人" },
+        { "icon": "sun", "vi": "Nắng hướng đông", "en": "East facing", "ko": "동향 채광", "zh": "朝东采光" }
       ]
     },
     {
@@ -105,24 +73,16 @@
       "image": "photo-balcony.png",
       "vi": "Phòng Ban Công",
       "en": "Balcony Room",
+      "ko": "발코니룸",
+      "zh": "阳台房",
       "flagVi": "Superior",
       "flagEn": "Superior",
+      "flagKo": "슈페리어",
+      "flagZh": "高级",
       "meta": [
-        {
-          "icon": "bed-double",
-          "vi": "1 giường king",
-          "en": "1 king bed"
-        },
-        {
-          "icon": "users",
-          "vi": "2 khách",
-          "en": "2 guests"
-        },
-        {
-          "icon": "armchair",
-          "vi": "Ban công riêng",
-          "en": "Private balcony"
-        }
+        { "icon": "bed-double", "vi": "1 giường king", "en": "1 king bed", "ko": "킹사이즈 침대 1개", "zh": "1张特大床" },
+        { "icon": "users", "vi": "2 khách", "en": "2 guests", "ko": "최대 2인", "zh": "2位客人" },
+        { "icon": "armchair", "vi": "Ban công riêng", "en": "Private balcony", "ko": "전용 발코니", "zh": "私人阳台" }
       ]
     }
   ]

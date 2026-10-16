@@ -1,76 +1,16 @@
 {
   "items": [
-    {
-      "icon": "waves",
-      "vi": "Hồ bơi nước mặn có thác nước",
-      "en": "Salt-water pool with waterfall",
-      "noteVi": "Riêng biệt, có đèn ban đêm",
-      "noteEn": "Private, lit after dark"
-    },
-    {
-      "icon": "thermometer-sun",
-      "vi": "Phòng xông hơi gỗ",
-      "en": "Cedar sauna",
-      "noteVi": "Ngay cạnh hồ bơi",
-      "noteEn": "Steps from the pool"
-    },
-    {
-      "icon": "flame",
-      "vi": "Khu BBQ ngoài trời",
-      "en": "Outdoor BBQ terrace",
-      "noteVi": "Bàn dài 6 chỗ, có quạt trần",
-      "noteEn": "Six-seat table, ceiling fan"
-    },
-    {
-      "icon": "utensils-crossed",
-      "vi": "Bếp đầy đủ tiện nghi",
-      "en": "Fully equipped kitchen",
-      "noteVi": "Lò nướng, máy rửa bát, đảo bếp",
-      "noteEn": "Oven, dishwasher, island"
-    },
-    {
-      "icon": "wine",
-      "vi": "Bàn ăn gỗ nguyên tấm 12 chỗ",
-      "en": "Twelve-seat live-edge table"
-    },
-    {
-      "icon": "washing-machine",
-      "vi": "Phòng giặt",
-      "en": "Laundry room",
-      "noteVi": "Máy giặt, máy sấy, bàn ủi hơi nước",
-      "noteEn": "Washer, dryer, steam iron"
-    },
-    {
-      "icon": "sofa",
-      "vi": "Phòng khách mở ra hồ bơi",
-      "en": "Living room opening to the pool"
-    },
-    {
-      "icon": "arrow-up-down",
-      "vi": "Thang máy trong nhà",
-      "en": "In-house lift",
-      "noteVi": "Đủ ba tầng",
-      "noteEn": "All three floors"
-    },
-    {
-      "icon": "bath",
-      "vi": "Bồn tắm đá trong phòng ngủ",
-      "en": "Stone soaking tubs in the bedrooms"
-    },
-    {
-      "icon": "car",
-      "vi": "Chỗ đậu xe trong khuôn viên",
-      "en": "On-site parking"
-    },
-    {
-      "icon": "wifi",
-      "vi": "Wi-Fi tốc độ cao",
-      "en": "High-speed Wi-Fi"
-    },
-    {
-      "icon": "footprints",
-      "vi": "Mười phút đi bộ tới biển Mỹ Khê",
-      "en": "Ten-minute walk to My Khe beach"
-    }
+    { "icon": "waves", "vi": "Hồ bơi nước mặn có thác nước", "en": "Salt-water pool with waterfall", "ko": "폭포가 있는 해수 수영장", "zh": "带瀑布的盐水泳池", "noteVi": "Riêng biệt, có đèn ban đêm", "noteEn": "Private, lit after dark", "noteKo": "독립된 공간, 야간 조명 있음", "noteZh": "独立私密，夜间有灯光" },
+    { "icon": "thermometer-sun", "vi": "Phòng xông hơi gỗ", "en": "Cedar sauna", "ko": "삼나무 사우나", "zh": "雪松桑拿房", "noteVi": "Ngay cạnh hồ bơi", "noteEn": "Steps from the pool", "noteKo": "수영장 바로 옆", "noteZh": "紧邻泳池" },
+    { "icon": "flame", "vi": "Khu BBQ ngoài trời", "en": "Outdoor BBQ terrace", "ko": "야외 바비큐 테라스", "zh": "户外烧烤露台", "noteVi": "Bàn dài 6 chỗ, có quạt trần", "noteEn": "Six-seat table, ceiling fan", "noteKo": "6인용 테이블, 천장 선풍기 구비", "noteZh": "6人长桌，配有吊扇" },
+    { "icon": "utensils-crossed", "vi": "Bếp đầy đủ tiện nghi", "en": "Fully equipped kitchen", "ko": "풀옵션 주방", "zh": "设备齐全的厨房", "noteVi": "Lò nướng, máy rửa bát, đảo bếp", "noteEn": "Oven, dishwasher, island", "noteKo": "오븐, 식기세척기, 아일랜드 식탁", "noteZh": "烤箱、洗碗机、中岛台" },
+    { "icon": "wine", "vi": "Bàn ăn gỗ nguyên tấm 12 chỗ", "en": "Twelve-seat live-edge table", "ko": "12인용 원목 다이닝 테이블", "zh": "12人位原木长桌" },
+    { "icon": "washing-machine", "vi": "Phòng giặt", "en": "Laundry room", "ko": "세탁실", "zh": "洗衣房", "noteVi": "Máy giặt, máy sấy, bàn ủi hơi nước", "noteEn": "Washer, dryer, steam iron", "noteKo": "세탁기, 건조기, 스팀다리미", "noteZh": "洗衣机、烘干机、蒸汽熨斗" },
+    { "icon": "sofa", "vi": "Phòng khách mở ra hồ bơi", "en": "Living room opening to the pool", "ko": "수영장과 연결된 거실", "zh": "直通泳池的客厅" },
+    { "icon": "arrow-up-down", "vi": "Thang máy trong nhà", "en": "In-house lift", "ko": "실내 엘리베이터", "zh": "室内电梯", "noteVi": "Đủ ba tầng", "noteEn": "All three floors", "noteKo": "3개 층 전체 운행", "noteZh": "连接全部三层" },
+    { "icon": "bath", "vi": "Bồn tắm đá trong phòng ngủ", "en": "Stone soaking tubs in the bedrooms", "ko": "침실 내 돌 욕조", "zh": "卧室内石浴缸" },
+    { "icon": "car", "vi": "Chỗ đậu xe trong khuôn viên", "en": "On-site parking", "ko": "부지 내 주차 공간", "zh": "院内停车位" },
+    { "icon": "wifi", "vi": "Wi-Fi tốc độ cao", "en": "High-speed Wi-Fi", "ko": "고속 와이파이", "zh": "高速无线网络" },
+    { "icon": "footprints", "vi": "Mười phút đi bộ tới biển Mỹ Khê", "en": "Ten-minute walk to My Khe beach", "ko": "미케 해변까지 도보 10분", "zh": "步行10分钟至美溪海滩" }
   ]
 }

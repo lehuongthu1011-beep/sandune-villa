@@ -4,65 +4,61 @@
       "id": "loft",
       "vi": "Phòng Gác Lửng",
       "en": "Loft Suite",
+      "ko": "로프트 스위트",
+      "zh": "阁楼套房",
       "blurbVi": "2 giường king, <em>bồn tắm đá đặt ngay cạnh cửa sổ.</em>",
       "blurbEn": "A king bed under the pitched roof, <em>a stone tub set beside the window.</em>",
-      "images": [
-        "photo-bed-loft-tub.png",
-        "photo-bathtub.png",
-        "photo-vanity.png",
-        "photo-wardrobe.png"
-      ]
+      "blurbKo": "킹사이즈 침대, <em>창가에 놓인 돌 욕조.</em>",
+      "blurbZh": "特大床配，<em>石浴缸就设于窗边。</em>",
+      "images": ["photo-bed-loft-tub.png", "photo-bathtub.png", "photo-vanity.png", "photo-wardrobe.png"]
     },
     {
       "id": "pool",
       "vi": "Hồ Bơi Nước Mặn",
       "en": "The Salt-Water Pool",
+      "ko": "해수 수영장",
+      "zh": "盐水泳池",
       "blurbVi": "Hồ bơi riêng có thác nước, <em>võng mắc dọc bên bờ.</em>",
       "blurbEn": "A private pool with its own waterfall, <em>hammocks strung along both banks.</em>",
-      "images": [
-        "photo-pool-hammocks.png",
-        "photo-pool-waterfall.png",
-        "photo-pool-night.png",
-        "photo-pool-aerial.png"
-      ]
+      "blurbKo": "자체 폭포가 있는 프라이빗 수영장, <em>가장자리를 따라 걸린 해먹.</em>",
+      "blurbZh": "带私人瀑布的泳池，<em>岸边挂满吊床。</em>",
+      "images": ["photo-pool-hammocks.png", "photo-pool-waterfall.png", "photo-pool-night.png", "photo-pool-aerial.png"]
     },
     {
       "id": "living",
       "vi": "Phòng Khách Mở",
       "en": "The Open Living Room",
+      "ko": "오픈 리빙룸",
+      "zh": "开放式客厅",
       "blurbVi": "Cửa kính chạy suốt mặt hồ, <em>view trọn vẹn hồ bơi.</em>",
       "blurbEn": "Glass the full width of the pool, <em>open it and you step straight in.</em>",
-      "images": [
-        "photo-living-pool.png",
-        "photo-living.png",
-        "photo-dining.png",
-        "photo-kitchen.png"
-      ]
+      "blurbKo": "수영장 전면을 감싸는 통유리, <em>문을 열면 바로 이어지는 공간.</em>",
+      "blurbZh": "落地玻璃面向整个泳池，<em>打开即可直接步入水中。</em>",
+      "images": ["photo-living-pool.png", "photo-living.png", "photo-dining.png", "photo-kitchen.png"]
     },
     {
       "id": "sauna",
       "vi": "Phòng Xông Hơi",
       "en": "The Cedar Sauna",
+      "ko": "삼나무 사우나룸",
+      "zh": "雪松桑拿房",
       "blurbVi": "Phòng ốp gỗ, <em>trải nghiệm tuyệt vời gói gọn trong villa.</em>",
       "blurbEn": "A cedar-lined room, <em>the whole experience contained in the villa.</em>",
-      "images": [
-        "photo-sauna.png",
-        "photo-bathroom.png",
-        "photo-bathtub.png"
-      ]
+      "blurbKo": "삼나무로 마감된 공간, <em>빌라 안에서 완성되는 특별한 경험.</em>",
+      "blurbZh": "雪松木内饰，<em>整个体验都在别墅内完成。</em>",
+      "images": ["photo-sauna.png", "photo-bathroom.png", "photo-bathtub.png"]
     },
     {
       "id": "terrace",
       "vi": "Sân BBQ Ngoài Trời",
       "en": "The BBQ Terrace",
+      "ko": "야외 바비큐 테라스",
+      "zh": "户外烧烤露台",
       "blurbVi": "Không gian hoà mình với thiên nhiên, <em>đem đến trải nghiệm bữa tiệc BBQ trọn vẹn.</em>",
       "blurbEn": "Open to the garden, <em>for a BBQ evening that runs long.</em>",
-      "images": [
-        "photo-bbq-terrace.png",
-        "photo-bbq-table.png",
-        "photo-balcony.png",
-        "photo-exterior-dusk.png"
-      ]
+      "blurbKo": "정원과 이어진 공간, <em>길게 이어지는 바비큐의 밤.</em>",
+      "blurbZh": "通向花园的开放空间，<em>尽享悠长的烧烤之夜。</em>",
+      "images": ["photo-bbq-terrace.png", "photo-bbq-table.png", "photo-balcony.png", "photo-exterior-dusk.png"]
     }
   ]
 }
