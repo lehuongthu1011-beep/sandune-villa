@@ -454,7 +454,7 @@ export function BookingPageContent({ onExit }) {
       total,
     });
     // Chưa khoá ngày: ngày chỉ bị khoá sau khi nhân sự xác nhận đã thanh toán
-    // trong Google Sheet (Worker tự đọc lại mỗi phút).
+    // ở trang /admin (Worker tự đọc lại mỗi phút).
     go(3);
   };
 

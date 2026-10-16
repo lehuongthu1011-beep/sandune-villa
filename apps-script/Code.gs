@@ -41,9 +41,10 @@ function doPost(e) {
       return handleOtp(data);
     }
 
-    // Worker hỏi danh sách đơn ĐÃ THANH TOÁN để khoá ngày (mỗi phút một lần).
-    if (data.type === "confirmed") {
-      return handleConfirmed(data);
+    // Worker hỏi danh sách đơn (mã + ngày) để đối chiếu với các đơn đã được
+    // xác nhận thanh toán ở trang /admin (mỗi phút một lần).
+    if (data.type === "bookings") {
+      return handleBookings(data);
     }
 
     var type = data.type === "contact" ? "contact" : "booking";
@@ -120,18 +121,6 @@ function handleOtp(d) {
   );
 }
 
-var STATUS_HEADER = "Trạng thái";
-var STATUS_PENDING = "Chờ thanh toán";
-var STATUS_PAID = "Đã thanh toán";
-var STATUS_CANCELLED = "Huỷ";
-
-function statusRule() {
-  return SpreadsheetApp.newDataValidation()
-    .requireValueInList([STATUS_PENDING, STATUS_PAID, STATUS_CANCELLED], true)
-    .setAllowInvalid(false)
-    .build();
-}
-
 function toIsoDate(v) {
   if (v instanceof Date) {
     return Utilities.formatDate(v, SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone(), "yyyy-MM-dd");
@@ -140,11 +129,11 @@ function toIsoDate(v) {
 }
 
 /**
- * Trả về danh sách đơn có cột "Trạng thái" = "Đã thanh toán". Chỉ đơn trong
- * danh sách này mới khoá ngày trên web và trên Airbnb/Agoda/Booking.com/Ctrip.
- * Cần đúng OTP_MAIL_SECRET (cùng khoá với đăng nhập /admin).
+ * Trả về mã đặt phòng và ngày ở của mọi đơn. Việc đơn nào đã thanh toán do
+ * nhân sự xác nhận ở trang /admin; Worker đối chiếu hai danh sách rồi mới khoá
+ * ngày. Cần đúng OTP_MAIL_SECRET.
  */
-function handleConfirmed(d) {
+function handleBookings(d) {
   var secret = PropertiesService.getScriptProperties().getProperty("OTP_MAIL_SECRET");
   if (!secret || typeof d.secret !== "string" || d.secret !== secret) {
     throw new Error("Sai khoá bí mật");
@@ -157,10 +146,8 @@ function handleConfirmed(d) {
     var iRef = head.indexOf("Mã đặt phòng");
     var iIn = head.indexOf("Nhận phòng (ngày)");
     var iOut = head.indexOf("Trả phòng (ngày)");
-    var iSt = head.indexOf(STATUS_HEADER);
-    if (iRef < 0 || iIn < 0 || iOut < 0 || iSt < 0) throw new Error("Thiếu cột trong Sheet");
+    if (iRef < 0 || iIn < 0 || iOut < 0) throw new Error("Thiếu cột trong Sheet");
     for (var r = 1; r < values.length; r++) {
-      if (String(values[r][iSt]).trim() !== STATUS_PAID) continue;
       var start = toIsoDate(values[r][iIn]);
       var end = toIsoDate(values[r][iOut]);
       if (/^\d{4}-\d{2}-\d{2}$/.test(start) && /^\d{4}-\d{2}-\d{2}$/.test(end) && end > start) {
@@ -171,32 +158,6 @@ function handleConfirmed(d) {
   return ContentService.createTextOutput(JSON.stringify({ ok: true, bookings: out })).setMimeType(
     ContentService.MimeType.JSON
   );
-}
-
-/**
- * CHẠY MỘT LẦN: thêm cột "Trạng thái" vào tab "Đặt phòng" (nếu chưa có), gán
- * "Chờ thanh toán" cho các đơn cũ chưa có trạng thái và bật ô chọn
- * (Chờ thanh toán / Đã thanh toán / Huỷ).
- */
-function setupStatusColumn() {
-  var sheet = getSheet("Đặt phòng");
-  if (sheet.getLastRow() === 0) return;
-  var lastCol = sheet.getLastColumn();
-  var head = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
-  var col = head.indexOf(STATUS_HEADER) + 1;
-  if (!col) {
-    col = lastCol + 1;
-    sheet.getRange(1, col).setValue(STATUS_HEADER).setFontWeight("bold");
-  }
-  var rows = Math.max(sheet.getLastRow() - 1, 0);
-  if (rows > 0) {
-    var rng = sheet.getRange(2, col, rows, 1);
-    var vals = rng.getValues();
-    for (var i = 0; i < vals.length; i++) if (!vals[i][0]) vals[i][0] = STATUS_PENDING;
-    rng.setValues(vals);
-  }
-  // Áp luật chọn cho 1000 dòng để đơn mới tự có ô chọn.
-  sheet.getRange(2, col, 1000, 1).setDataValidation(statusRule());
 }
 
 function getSheet(name) {
@@ -215,17 +176,14 @@ function appendBookingRow(d) {
       "Thời gian", "Mã đặt phòng", "Họ", "Tên", "Email", "SĐT", "Quốc tịch",
       "Nhận phòng (ngày)", "Trả phòng (ngày)", "Số đêm", "Người lớn", "Trẻ em",
       "Em bé", "Tổng khách", "Giờ nhận phòng dự kiến", "Ghi chú", "Phương thức thanh toán",
-      "Tổng tiền (₫)", "Ngôn ngữ", STATUS_HEADER,
+      "Tổng tiền (₫)", "Ngôn ngữ",
     ]);
   }
   sheet.appendRow([
     new Date(), d.ref, d.lastName, d.firstName, d.email, d.phone, d.nationality,
     d.checkIn, d.checkOut, d.nights, d.adults, d.kids, d.infants, d.guests,
-    d.arrive, d.notes, d.paymentMethod, d.total, d.lang, STATUS_PENDING,
+    d.arrive, d.notes, d.paymentMethod, d.total, d.lang,
   ]);
-  var head = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-  var col = head.indexOf(STATUS_HEADER) + 1;
-  if (col) sheet.getRange(sheet.getLastRow(), col).setDataValidation(statusRule());
 }
 
 function appendContactRow(d) {

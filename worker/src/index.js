@@ -77,17 +77,39 @@ async function getDirectBookings(env) {
   }
 }
 
-// Chỉ đơn ĐÃ THANH TOÁN mới khoá ngày. Nhân sự đổi cột "Trạng thái" trong
-// Google Sheet thành "Đã thanh toán"; mỗi lần đồng bộ Worker hỏi lại Apps Script
-// và ghi đè danh sách. Đổi lại "Chờ thanh toán" hoặc "Huỷ" thì ngày tự mở lại.
-// Nếu không gọi được Apps Script thì giữ nguyên danh sách cũ, không xoá nhầm.
+// Chỉ đơn ĐÃ THANH TOÁN mới khoá ngày. Nhân sự thêm mã đơn vào mục "Xác nhận
+// thanh toán" ở /admin (file content/payments.json trên GitHub). Mỗi lần đồng
+// bộ, Worker đọc file đó, hỏi Apps Script ngày ở của từng mã, rồi ghi đè danh
+// sách. Xoá mã khỏi /admin thì ngày tự mở lại. Nếu một trong hai nguồn lỗi thì
+// giữ nguyên danh sách cũ, không xoá nhầm.
+const REPO = "lehuongthu1011-beep/sandune-villa";
+
+async function fetchPaidRefs(env) {
+  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/content/payments.json`, {
+    headers: {
+      authorization: `Bearer ${env.CMS_GITHUB_TOKEN}`,
+      accept: "application/vnd.github.raw+json",
+      "user-agent": "sandune-ota-sync",
+    },
+  });
+  if (!res.ok) throw new Error("GitHub HTTP " + res.status);
+  const data = JSON.parse(await res.text());
+  const refs = new Set();
+  for (const it of Array.isArray(data.paid) ? data.paid : []) {
+    const ref = String((it && it.ref) || "").trim().toUpperCase();
+    if (ref) refs.add(ref);
+  }
+  return refs;
+}
+
 async function refreshPaidBookings(env) {
-  if (!env.OTP_MAIL_URL || !env.OTP_MAIL_SECRET) return;
+  if (!env.OTP_MAIL_URL || !env.OTP_MAIL_SECRET || !env.CMS_GITHUB_TOKEN) return;
   try {
+    const refs = await fetchPaidRefs(env);
     const res = await fetch(env.OTP_MAIL_URL, {
       method: "POST",
       headers: { "content-type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ type: "confirmed", secret: env.OTP_MAIL_SECRET }),
+      body: JSON.stringify({ type: "bookings", secret: env.OTP_MAIL_SECRET }),
     });
     const data = JSON.parse(await res.text());
     if (!data || data.ok !== true || !Array.isArray(data.bookings)) {
@@ -97,7 +119,12 @@ async function refreshPaidBookings(env) {
     const list = data.bookings
       .filter(
         (b) =>
-          b && typeof b.ref === "string" && ISO_DATE_RE.test(b.start) && ISO_DATE_RE.test(b.end) && b.end > b.start
+          b &&
+          typeof b.ref === "string" &&
+          refs.has(b.ref.trim().toUpperCase()) &&
+          ISO_DATE_RE.test(b.start) &&
+          ISO_DATE_RE.test(b.end) &&
+          b.end > b.start
       )
       .map((b) => ({ ref: b.ref, start: b.start, end: b.end }));
     await env.CALENDAR_KV.put("direct-bookings", JSON.stringify(list));

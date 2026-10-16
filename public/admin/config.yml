@@ -279,3 +279,19 @@ collections:
               - { label: "Đến từ (English)", name: "fromEn", widget: "string" }
               - { label: "Nhận xét (Tiếng Việt)", name: "vi", widget: "text" }
               - { label: "Nhận xét (English)", name: "en", widget: "text" }
+
+  - name: "payments"
+    label: "Xác nhận thanh toán"
+    files:
+      - name: "payments"
+        label: "Đơn khách đã thanh toán"
+        file: "content/payments.json"
+        fields:
+          - label: "Đơn đã thanh toán. Chỉ đơn có mặt trong danh sách này mới khoá ngày trên web và các kênh Airbnb, Agoda, Booking.com, Ctrip. Khi khách huỷ, xoá đơn khỏi danh sách để mở lại ngày"
+            name: "paid"
+            widget: "list"
+            required: false
+            summary: "{{ref}} {{note}}"
+            fields:
+              - { label: "Mã đặt phòng (có trong email báo đơn, dạng SDV-... , gõ đúng như trong email)", name: "ref", widget: "string" }
+              - { label: "Ghi chú cho nhân viên (không bắt buộc, vd tên khách, đã nhận chuyển khoản ngày nào)", name: "note", widget: "string", required: false }
