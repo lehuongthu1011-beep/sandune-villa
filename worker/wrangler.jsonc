@@ -3,6 +3,7 @@
   "name": "sandune-ota-sync",
   "main": "src/index.js",
   "compatibility_date": "2026-10-16",
+  "routes": [{ "pattern": "ical.sandunevilla.vn", "custom_domain": true }],
   "triggers": {
     "crons": ["* * * * *"]
   },
