@@ -1,3 +1,8 @@
 {
-  "paid": []
+  "paid": [
+    {
+      "ref": "SDV-TEST",
+      "note": ""
+    }
+  ]
 }
