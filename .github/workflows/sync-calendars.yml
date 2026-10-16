@@ -2,8 +2,10 @@ name: Sync OTA calendars
 
 on:
   schedule:
-    # 4 tiếng/lần (giờ UTC). Đổi lịch ở đây nếu muốn đồng bộ nhanh/chậm hơn.
-    - cron: "15 */4 * * *"
+    # 15 phút/lần. Repo công khai nên GitHub Actions miễn phí, không tốn gì
+    # thêm khi chạy thường xuyên. Đổi số ở đây nếu muốn nhanh/chậm hơn
+    # (tối thiểu GitHub cho phép là 5 phút, nhưng dưới 15 phút dễ bị trễ giờ).
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 jobs:
