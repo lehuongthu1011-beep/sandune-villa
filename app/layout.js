@@ -1,6 +1,7 @@
 import "./globals.css";
 import { playfair, beVietnamPro, montserrat } from "./fonts";
 import { LangProvider } from "@/lib/lang-context";
+import { FloatingContact } from "@/components/FloatingContact";
 
 export const metadata = {
   title: "Đặt phòng · SanDune Villa",
@@ -15,7 +16,10 @@ export default function RootLayout({ children }) {
       className={`${playfair.variable} ${beVietnamPro.variable} ${montserrat.variable}`}
     >
       <body>
-        <LangProvider>{children}</LangProvider>
+        <LangProvider>
+          {children}
+          <FloatingContact />
+        </LangProvider>
       </body>
     </html>
   );
