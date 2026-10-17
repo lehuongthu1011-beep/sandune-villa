@@ -114,24 +114,28 @@ collections:
         label: "Giá mỗi đêm"
         file: "content/pricing.json"
         fields:
-          - label: "Giá chuẩn mỗi đêm (VNĐ, chỉ gõ số, vd 15000000). Đêm nào không có mức giá riêng bên dưới sẽ tính giá này"
+          - label: "Giá chuẩn mỗi đêm (VNĐ)"
+            hint: "Chỉ gõ số, ví dụ 15000000. Đêm nào không có mức giá riêng bên dưới sẽ tính giá này."
             name: "base"
             widget: "number"
             value_type: "int"
             min: 0
-          - label: "Mức giá riêng (cho một ngày, một tuần, một tháng, cuối tuần, lễ, Tết...). Mức nằm trên cùng được ưu tiên khi hai mức trùng ngày"
+          - label: "Mức giá riêng"
+            hint: "Dùng cho một ngày, một tuần, một tháng, cuối tuần, lễ, Tết. Mức nằm trên cùng được ưu tiên khi hai mức trùng ngày."
+            label_singular: "mức giá"
             name: "seasons"
             widget: "list"
             required: false
             summary: "{{nameVi}}: {{from}} đến {{to}}, {{price}}"
             fields:
-              - { label: "Tên gọi để nhớ (Tiếng Việt, vd Cuối tuần tháng 12)", name: "nameVi", widget: "string" }
-              - { label: "Tên (English, không bắt buộc, hiện cho khách nước ngoài)", name: "nameEn", widget: "string", required: false }
-              - { label: "Tên (한국어, không bắt buộc)", name: "nameKo", widget: "string", required: false }
-              - { label: "Tên (中文, không bắt buộc)", name: "nameZh", widget: "string", required: false }
-              - { label: "Từ đêm ngày (một ngày thì chọn cùng ngày ở ô Đến). Bỏ trống cả hai ô ngày để áp dụng mọi ngày trong năm", name: "from", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
-              - { label: "Đến hết đêm ngày (tính cả ngày này)", name: "to", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
-              - label: "Chỉ áp dụng cho các thứ (bỏ trống là mọi ngày trong khoảng trên, chọn Thứ Sáu và Thứ Bảy để tính giá cuối tuần)"
+              - { label: "Tên gọi để nhớ", hint: "Tiếng Việt, ví dụ Cuối tuần tháng 12.", name: "nameVi", widget: "string" }
+              - { label: "Tên (English)", hint: "Không bắt buộc, hiện cho khách nước ngoài.", name: "nameEn", widget: "string", required: false }
+              - { label: "Tên (한국어)", hint: "Không bắt buộc.", name: "nameKo", widget: "string", required: false }
+              - { label: "Tên (中文)", hint: "Không bắt buộc.", name: "nameZh", widget: "string", required: false }
+              - { label: "Từ đêm ngày", hint: "Một ngày thì chọn cùng ngày ở ô Đến. Bỏ trống cả hai ô ngày để áp dụng mọi ngày trong năm.", name: "from", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+              - { label: "Đến hết đêm ngày", hint: "Tính cả ngày này.", name: "to", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+              - label: "Chỉ áp dụng cho các thứ"
+                hint: "Bỏ trống là mọi ngày trong khoảng trên. Chọn Thứ Sáu và Thứ Bảy để tính giá cuối tuần."
                 name: "weekdays"
                 widget: "select"
                 multiple: true
@@ -144,12 +148,14 @@ collections:
                   - { label: "Thứ Sáu", value: "fri" }
                   - { label: "Thứ Bảy", value: "sat" }
                   - { label: "Chủ Nhật", value: "sun" }
-              - label: "Giá mỗi đêm của mức này (VNĐ, chỉ gõ số)"
+              - label: "Giá mỗi đêm của mức này (VNĐ)"
+                hint: "Chỉ gõ số."
                 name: "price"
                 widget: "number"
                 value_type: "int"
                 min: 0
-              - label: "Lặp lại mỗi năm (bật cho ngày cố định theo dương lịch như cả tháng 7 hay 30/4, tắt cho Tết âm lịch vì ngày đổi mỗi năm)"
+              - label: "Lặp lại mỗi năm"
+                hint: "Bật cho ngày cố định theo dương lịch như cả tháng 7 hay 30/4. Tắt cho Tết âm lịch vì ngày đổi mỗi năm."
                 name: "yearly"
                 widget: "boolean"
                 default: false
@@ -215,10 +221,12 @@ collections:
               - { label: "Mã (không dấu, không trùng)", name: "id", widget: "string" }
               - { label: "Tên (Tiếng Việt)", name: "vi", widget: "string" }
               - { label: "Tên (English)", name: "en", widget: "string" }
-              - label: "Mô tả ngắn (Tiếng Việt — bọc <em>...</em> để in nghiêng)"
+              - label: "Mô tả ngắn (Tiếng Việt)"
+                hint: "Bọc chữ bằng <em>...</em> để in nghiêng."
                 name: "blurbVi"
                 widget: "text"
-              - label: "Mô tả ngắn (English — bọc <em>...</em> để in nghiêng)"
+              - label: "Mô tả ngắn (English)"
+                hint: "Bọc chữ bằng <em>...</em> để in nghiêng."
                 name: "blurbEn"
                 widget: "text"
               - label: "Ảnh (2–4 ảnh, lướt qua lại)"
@@ -295,5 +303,5 @@ collections:
             required: false
             summary: "{{ref}} {{note}}"
             fields:
-              - { label: "Mã đặt phòng (có trong email báo đơn, dạng SDV-... , gõ đúng như trong email)", name: "ref", widget: "string" }
-              - { label: "Ghi chú cho nhân viên (không bắt buộc, vd tên khách, đã nhận chuyển khoản ngày nào)", name: "note", widget: "string", required: false }
+              - { label: "Mã đặt phòng", hint: "Có trong email báo đơn, dạng SDV-... Gõ đúng như trong email.", name: "ref", widget: "string" }
+              - { label: "Ghi chú", hint: "Không bắt buộc. Ví dụ tên khách, ngày nhận chuyển khoản.", name: "note", widget: "string", required: false }
