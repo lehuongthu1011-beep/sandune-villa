@@ -20,18 +20,18 @@ function toInternational(s) {
   return d;
 }
 
-const BTN = {
-  width: 52,
-  height: 52,
-  borderRadius: "50%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#fff",
-  boxShadow: "0 4px 14px rgba(0,0,0,.28)",
-  textDecoration: "none",
-  border: "2px solid rgba(255,255,255,.9)",
-};
+// Màu và kiểu lấy theo trang: xanh ô-liu đậm, viền cát mảnh, bóng nhẹ, chữ Montserrat.
+const CSS = `
+.sv-fab{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--olive-700);color:var(--sand-100);text-decoration:none;
+  border:1px solid var(--sand-400);box-shadow:0 8px 20px -6px rgba(35,47,22,.45);
+  font-family:var(--font-label);font-weight:600;font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.sv-fab:hover,.sv-fab:focus-visible{background:var(--olive-800);transform:translateY(-2px);
+  box-shadow:0 12px 26px -8px rgba(35,47,22,.55);outline:none}
+.sv-fab:focus-visible{box-shadow:0 0 0 3px rgba(188,204,164,.7)}
+.sv-fab svg{display:block}
+`;
 
 export function FloatingContact() {
   const { lang } = useLang();
@@ -48,34 +48,22 @@ export function FloatingContact() {
         zIndex: 300,
         display: "flex",
         flexDirection: "column",
-        gap: 12,
+        gap: 10,
       }}
     >
-      <a href={"tel:+" + intl} aria-label={L.call} title={L.call} style={{ ...BTN, background: "#2e8b57" }}>
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" />
+      <style>{CSS}</style>
+      <a className="sv-fab" href={"tel:+" + intl} aria-label={L.call} title={L.call}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M5 4h3.2l1.6 4-2 1.3a11 11 0 0 0 5.9 5.9l1.3-2 4 1.6V18a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" />
         </svg>
       </a>
-      <a
-        href={"https://zalo.me/" + intl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={L.zalo}
-        title={L.zalo}
-        style={{ ...BTN, background: "#0068ff", fontWeight: 800, fontSize: 14, letterSpacing: "-0.02em" }}
-      >
+      <a className="sv-fab" href={"https://zalo.me/" + intl} target="_blank" rel="noopener noreferrer" aria-label={L.zalo} title={L.zalo}>
         Zalo
       </a>
-      <a
-        href={"https://t.me/+" + tg}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={L.telegram}
-        title={L.telegram}
-        style={{ ...BTN, background: "#229ed9" }}
-      >
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M21.9 4.3 18.7 19.5c-.24 1.07-.87 1.33-1.76.83l-4.86-3.58-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.95 9-8.13c.39-.35-.09-.54-.6-.19L6.37 13.2 1.58 11.7c-1.04-.33-1.06-1.04.22-1.54l18.7-7.2c.87-.32 1.63.2 1.4 1.34z" />
+      <a className="sv-fab" href={"https://t.me/+" + tg} target="_blank" rel="noopener noreferrer" aria-label={L.telegram} title={L.telegram}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M21 4 3 11l5.5 2L10 19l3-3.5 4.5 3.3z" />
+          <path d="m8.5 13 8-6" />
         </svg>
       </a>
     </div>
