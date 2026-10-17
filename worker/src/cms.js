@@ -120,28 +120,54 @@ async function hashCode(env, email, code) {
 // ------------------------------------------------------- gửi mã qua Apps Script
 
 async function sendMail(env, email, code, name) {
+  const body = JSON.stringify({
+    type: "otp",
+    secret: env.OTP_MAIL_SECRET,
+    email,
+    code,
+    name,
+    minutes: OTP_TTL_SECONDS / 60,
+  });
   try {
+    // Apps Script chạy doPost xong rồi mới trả 302 kèm địa chỉ chứa kết quả.
+    // Tự đi theo địa chỉ đó để đọc kết quả. Nếu bước đọc kết quả hỏng bất
+    // thường (Google đôi khi trả lỗi tạm thời) thì mail đã gửi rồi, nên không
+    // báo lỗi sai cho nhân viên.
     const res = await fetch(env.OTP_MAIL_URL, {
       method: "POST",
       // text/plain để Apps Script nhận được JSON mà không cần preflight.
       headers: { "content-type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        type: "otp",
-        secret: env.OTP_MAIL_SECRET,
-        email,
-        code,
-        name,
-        minutes: OTP_TTL_SECONDS / 60,
-      }),
+      body,
+      redirect: "manual",
     });
-    const text = await res.text();
+    let text = "";
+    let readable = false;
+    if (res.status >= 300 && res.status < 400 && res.headers.get("location")) {
+      const loc = res.headers.get("location");
+      for (let i = 0; i < 3 && !readable; i++) {
+        try {
+          const r2 = await fetch(loc);
+          text = await r2.text();
+          readable = r2.ok;
+        } catch (err) {
+          text = String(err && err.message);
+        }
+      }
+      if (!readable) {
+        console.error("[cms] Không đọc được kết quả Apps Script, coi như đã gửi:", text.slice(0, 200));
+        return true;
+      }
+    } else {
+      text = await res.text();
+      readable = res.ok;
+    }
     let data = null;
     try {
       data = JSON.parse(text);
     } catch {
       /* Apps Script trả HTML khi lỗi */
     }
-    if (!res.ok || !data || data.ok !== true) {
+    if (!readable || !data || data.ok !== true) {
       console.error("[cms] Apps Script không gửi được mã:", res.status, text.slice(0, 200));
       return false;
     }
