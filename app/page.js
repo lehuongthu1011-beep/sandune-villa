@@ -5,9 +5,7 @@ export default function HomePage() {
   return (
     <>
       <SiteHeaderClient />
-      <div className="sv-home-upright" style={{ display: "contents" }}>
-        <HomeSections />
-      </div>
+      <HomeSections />
       <SiteFooterClient />
     </>
   );
