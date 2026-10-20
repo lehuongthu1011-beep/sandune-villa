@@ -22,7 +22,7 @@ export function GalleryPageContent() {
       <div className="sv-r-masonry" style={{ columnCount: 3, columnGap: "var(--grid-gap)" }}>
         {list.map((s, i) => (
           <div key={s.src} style={{ breakInside: "avoid", marginBottom: "var(--grid-gap)", cursor: "pointer" }} onClick={() => setOpen(s.src)}>
-            <Figure src={s.src} shape="soft" ratio={i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/3" : "1/1"} caption={s[lang]} alt={s[lang] || ""} />
+            <Figure src={s.src} shape="soft" ratio={i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/3" : "1/1"} style={tab === "all" ? { aspectRatio: "auto" } : undefined} caption={s[lang]} alt={s[lang] || ""} />
           </div>
         ))}
       </div>
