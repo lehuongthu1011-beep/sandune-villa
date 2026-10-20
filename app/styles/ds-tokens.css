@@ -577,6 +577,8 @@ button{font:inherit}
    Emphasis comes from <em>; never bold it, never track it. */
 .sv-statement{font-family:var(--font-display);font-weight:var(--weight-regular);font-size:var(--size-statement);line-height:var(--lh-statement);letter-spacing:.005em;color:var(--text-primary);text-align:center;max-width:20ch;margin:0 auto;text-wrap:pretty}
 .sv-statement em{font-style:italic}
+/* Trang chủ: mọi chữ in nghiêng chuyển thành chữ thẳng (yêu cầu của chủ villa 20/10/2026). */
+.sv-home-upright,.sv-home-upright *{font-style:normal !important}
 .sv-statement--wide{max-width:28ch}
 /* --full: a long statement that must land in two lines. Steps the size down
    one notch and takes the full container width. */
