@@ -9,7 +9,7 @@
     { "src": "photo-kitchen.png", "vi": "Không gian nấu nướng đầy đủ tiện nghi", "en": "A fully equipped kitchen", "ko": "풀옵션 주방 공간", "zh": "设备齐全的厨房空间" },
     { "src": "photo-pool-waterfall.png", "vi": "Thác nước trong hồ bơi", "en": "The pool waterfall", "ko": "수영장 폭포", "zh": "泳池瀑布" },
     { "src": "photo-bathtub.png", "vi": "Bồn tắm đá tự nhiên", "en": "A natural stone soaking tub", "ko": "천연 돌 욕조", "zh": "天然石浴缸" },
-    { "src": "photo-exterior-dusk.png", "vi": "Biệt thự lúc hoàng hôn", "en": "The villa at dusk", "ko": "황혼녘의 빌라", "zh": "黄昏中的别墅" },
+    { "src": "photo-exterior-dusk.png", "vi": "Hồ bơi lúc hoàng hôn", "en": "The pool at dusk", "ko": "황혼녘의 수영장", "zh": "黄昏中的泳池" },
     { "src": "photo-bed-garden.png", "vi": "Phòng The Garden View", "en": "The Garden View room", "ko": "가든 뷰 룸", "zh": "花园景观房" },
     { "src": "photo-balcony.png", "vi": "Ban công riêng", "en": "A private balcony", "ko": "전용 발코니", "zh": "私人阳台" }
   ]
