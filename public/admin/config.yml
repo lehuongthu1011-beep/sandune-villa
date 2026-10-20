@@ -249,6 +249,15 @@ collections:
               - { label: "Ảnh", name: "src", widget: "image" }
               - { label: "Chú thích (Tiếng Việt)", name: "vi", widget: "string" }
               - { label: "Chú thích (English)", name: "en", widget: "string" }
+      - name: "gallery_all"
+        label: "Khoảnh khắc SanDune (ảnh tổng hợp)"
+        file: "content/gallery-all.json"
+        fields:
+          - label: "Tất cả ảnh"
+            name: "photos"
+            widget: "image"
+            multiple: true
+            hint: "Bấm để chọn nhiều ảnh một lần. Kéo thả để đổi thứ tự. Ảnh xuất hiện ở tab Khoảnh khắc SanDune trong trang Thư viện."
 
   - name: "reviews"
     label: "Đánh giá khách"
