@@ -60,7 +60,7 @@ export function ContactPageContent({ onSent }) {
           </div>
         </Card>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
-          <Figure src={SV_ASSETS + "photo-exterior-entry.png"} shape="soft" ratio="4/3" alt="" />
+          <Figure src={SV_ASSETS + "photo-exterior-entry.png"} shape="soft" ratio="4/3" alt="Cổng vào SanDune Villa, 43 Mỹ Khê 1, Đà Nẵng" />
           <Card padded>
             <Overline>{c.addressOverline}</Overline>
             <p style={{ fontSize: "var(--size-body-sm)", lineHeight: 1.7, color: "var(--text-secondary)", marginTop: 12 }}>{c.addressText}</p>

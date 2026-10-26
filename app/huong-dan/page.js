@@ -1,4 +1,7 @@
-export const metadata = { title: "Hướng dẫn quản trị · SanDune Villa" };
+export const metadata = {
+  title: "Hướng dẫn quản trị",
+  robots: { index: false, follow: false },
+};
 
 const Section = ({ title, children }) => (
   <section style={{ marginTop: 40 }}>

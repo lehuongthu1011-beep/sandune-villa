@@ -22,7 +22,7 @@ export function GalleryPageContent() {
       <div className="sv-r-masonry" style={{ columnCount: 3, columnGap: "var(--grid-gap)" }}>
         {list.map((s, i) => (
           <div key={s.src} style={{ breakInside: "avoid", marginBottom: "var(--grid-gap)", cursor: "pointer" }} onClick={() => setOpen(s.src)}>
-            <Figure src={s.src} shape="soft" ratio={i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/3" : "1/1"} style={{ aspectRatio: "auto" }} caption={s[lang]} alt={s[lang] || ""} />
+            <Figure src={s.src} shape="soft" ratio={i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/3" : "1/1"} style={{ aspectRatio: "auto" }} caption={s[lang]} alt={s[lang] || `Villa SanDune Đà Nẵng, ảnh ${i + 1}`} />
           </div>
         ))}
       </div>
@@ -34,7 +34,7 @@ export function GalleryPageContent() {
           <div style={{ position: "absolute", top: 20, right: 24 }}>
             <IconButton icon="x" label="Close" variant="glass" size="lg" onClick={() => setOpen(null)} />
           </div>
-          <img src={open} alt="" style={{ maxWidth: "90%", maxHeight: "86vh", objectFit: "contain", borderRadius: "var(--radius-lg)" }} />
+          <img src={open} alt="Ảnh SanDune Villa Đà Nẵng" style={{ maxWidth: "90%", maxHeight: "86vh", objectFit: "contain", borderRadius: "var(--radius-lg)" }} />
         </div>
       )}
     </div>

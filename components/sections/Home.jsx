@@ -17,7 +17,7 @@ function Hero() {
   const { t } = useLang();
   return (
     <section style={{ position: "relative", height: "100vh", minHeight: 640, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-      <img src={SV_ASSETS + "photo-pool-hammocks.png"} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      <img src={SV_ASSETS + "photo-pool-hammocks.png"} alt="Hồ bơi nước mặn và võng tại SanDune Villa Đà Nẵng" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
       <div style={{ position: "absolute", inset: 0, background: "var(--gradient-protect-top)" }} />
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(28,34,18,.52) 0%, rgba(28,34,18,.34) 55%, rgba(28,34,18,.44) 100%)" }} />
       <div style={{ position: "absolute", inset: 0, background: "var(--gradient-protect)" }} />
@@ -58,7 +58,7 @@ function Strip() {
   return (
     <div className="sv-r-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,minmax(0,1fr))", gap: "var(--space-2)", padding: "0 var(--space-2)" }}>
       {shots.map((s) => (
-        <Figure key={s} src={SV_ASSETS + s} shape="soft" ratio="1/1" alt="" />
+        <Figure key={s} src={SV_ASSETS + s} shape="soft" ratio="1/1" alt="Villa nguyên căn SanDune Villa Đà Nẵng" />
       ))}
     </div>
   );
@@ -91,7 +91,7 @@ function ShowcaseRow({ item, flip, onSelect }) {
   const { t, lang } = useLang();
   const media = (
     <div>
-      <Figure src={SV_ASSETS + item.images[i]} shape="soft" ratio="4/3" alt="" />
+      <Figure src={SV_ASSETS + item.images[i]} shape="soft" ratio="4/3" alt="SanDune Villa Đà Nẵng"  />
       <div style={{ display: "flex", gap: "var(--space-2)", marginTop: "var(--space-3)" }}>
         {item.images.map((im, n) => (
           <button
@@ -151,7 +151,7 @@ function BookBand({ onBook }) {
   const { t } = useLang();
   return (
     <section style={{ position: "relative", padding: "160px 0", overflow: "hidden" }}>
-      <img src={SV_ASSETS + "photo-pool-night.png"} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      <img src={SV_ASSETS + "photo-pool-night.png"} alt="Hồ bơi SanDune Villa về đêm, Mỹ Khê, Đà Nẵng" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
       <div style={{ position: "absolute", inset: 0, background: "rgba(28,34,18,.58)" }} />
       <div style={{ ...narrow, position: "relative", textAlign: "center" }}>
         <h2 className="sv-statement sv-statement--inverse" {...html(t.bookBandHtml)} />
@@ -230,7 +230,7 @@ function Place() {
   return (
     <section style={{ background: "var(--mist-100)", padding: "var(--section-y) 0" }}>
       <div className="sv-r-row" style={{ ...wrap, display: "grid", gridTemplateColumns: "minmax(0,1.15fr) minmax(0,0.85fr)", gap: "var(--space-13)", alignItems: "center" }}>
-        <Figure src={SV_ASSETS + "photo-exterior-dusk.png"} ratio="4/3" alt="" />
+        <Figure src={SV_ASSETS + "photo-exterior-dusk.png"} ratio="4/3" alt="Hồ bơi và ghế nằm SanDune Villa lúc hoàng hôn" />
         <div>
           <Overline>{t.placeOverline}</Overline>
           <h3
@@ -259,7 +259,7 @@ function CtaBand({ onBook }) {
   const rate = SV_RATE;
   return (
     <section style={{ position: "relative", padding: "150px 0", overflow: "hidden" }}>
-      <img src={SV_ASSETS + "photo-pool-dusk.png"} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      <img src={SV_ASSETS + "photo-pool-dusk.png"} alt="Mặt tiền SanDune Villa lúc hoàng hôn, gần biển Mỹ Khê Đà Nẵng" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
       <div style={{ position: "absolute", inset: 0, background: "rgba(28,34,18,.6)" }} />
       <div style={{ ...narrow, position: "relative", textAlign: "center" }}>
         <h2 className="sv-statement sv-statement--inverse">{t.ctaTitle}</h2>
