@@ -1,15 +1,15 @@
 {
-  "base": 11000000,
+  "base": 14000000,
   "seasons": [
     {
-      "nameVi": "Thấp điểm",
+      "nameVi": "Cao điểm",
       "nameEn": "",
       "nameKo": "",
       "nameZh": "",
-      "from": "2026-11-02",
-      "to": "2027-03-31",
+      "from": "2027-04-01",
+      "to": "2027-08-31",
       "weekdays": [],
-      "price": 11000000,
+      "price": 14000000,
       "yearly": false
     }
   ]
