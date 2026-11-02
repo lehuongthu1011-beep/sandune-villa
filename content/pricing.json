@@ -22,6 +22,17 @@
       "weekdays": [],
       "price": 11000000,
       "yearly": false
+    },
+    {
+      "nameVi": "Thấp điểm",
+      "nameEn": "",
+      "nameKo": "",
+      "nameZh": "",
+      "from": "2027-09-01",
+      "to": "2028-03-31",
+      "weekdays": [],
+      "price": 11000000,
+      "yearly": false
     }
   ]
 }
